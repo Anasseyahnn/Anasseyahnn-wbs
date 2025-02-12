@@ -32,6 +32,13 @@
     "href": "projets.html",
     "title": "Mon Portfolio",
     "section": "",
-    "text": "Analyse des donnees MPG\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nR\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nFeb 11, 2025\n\n\nAnasse Yahanan\n\n\n\n\n\n\n\n\n\n\n\n\nBienvenue sur mon blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nFeb 8, 2024\n\n\nAnassé Yahanan\n\n\n\n\n\n\nNo matching items"
+    "text": "Analyse des donnees MPG\n\n\n\n\n\n\nNews\n\n\nCode\n\n\nPython\n\n\nAnalysis\n\n\nMachine Learning\n\n\n\n\n\n\n\n\n\nFeb 11, 2025\n\n\nAnasse Yahanan\n\n\n\n\n\n\n\n\n\n\n\n\nAnalyse des donnees MPG\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nR\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nFeb 11, 2025\n\n\nAnasse Yahanan\n\n\n\n\n\n\n\n\n\n\n\n\nBienvenue sur mon blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nFeb 8, 2024\n\n\nAnassé Yahanan\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/EDA/index.html",
+    "href": "posts/EDA/index.html",
+    "title": "Analyse des donnees MPG",
+    "section": "",
+    "text": "import pandas as pd\nimport numpy as np \nimport streamlit as st"
   }
 ]

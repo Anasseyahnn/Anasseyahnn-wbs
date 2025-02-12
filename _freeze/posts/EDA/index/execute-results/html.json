@@ -1,0 +1,12 @@
+{
+  "hash": "8818e737905c0322be4d0379ad186a1a",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Analyse des donnees MPG\"\nauthor: \"Anasse Yahanan\"\ndate: \"2025-02-11\"\ncategories: [News, Code, Python, Analysis, Machine Learning]\nimage: \"mon.png\"\n---\n\n::: {#a4e2db5d .cell execution_count=1}\n``` {.python .cell-code}\nimport pandas as pd\nimport numpy as np \nimport streamlit as st\n```\n:::\n\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

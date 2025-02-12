@@ -1,0 +1,18 @@
+---
+title: "Analyse des donnees MPG"
+author: "Anasse Yahanan"
+date: "2025-02-11"
+categories: [News, Code, Python, Analysis, Machine Learning]
+image: "mon.png"
+---
+
+
+```{python}
+import pandas as pd
+import numpy as np 
+import streamlit as st
+```
+
+
+
+
