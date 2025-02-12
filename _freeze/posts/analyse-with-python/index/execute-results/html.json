@@ -1,0 +1,12 @@
+{
+  "hash": "2435e01936391269c05c335bed4082c7",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Visualiation des données\"\nauthor: \"Anasse Yahanan\"\ndate: \"2025-01-12\"\ncategories: [news, code, python, analysis]\nimage: \"mpg.png\"\n---\n\n\n\n## Projet de Data Science\n\n### Présentation\n\nVous envisagez de sortir voir un film. pour ce faire vous decidez de faire confiance aux critiques et évaluation en ligne. Cependant vous êtes convaincu l'entreprise qui affichie les notes gagne de l'argent en vandant les billets.\nAussi une question vous vient à l'esprit : \nEst-ce que l'entreprise à tendance à sur-évaluer les films avec de meilleurs notes que celle qu'ils devraient obtenir ?\n\n### Objectif \nUtilisez les compétences en pandas et data viz pour déterminer si les notes de Fandango en 2015 etaient orientées vers une meilleures évaluationnotation des films dans le but de vendre plus de billet. \n\n### Methodologie \n\nComparer les note des Fandango avec celles de l'article du site 538 [https://github.com/fivethirtyeight/data]\n\n::: {#70057686 .cell execution_count=1}\n``` {.python .cell-code}\nimport pandas as pd\nimport numpy as np\n```\n:::\n\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}
