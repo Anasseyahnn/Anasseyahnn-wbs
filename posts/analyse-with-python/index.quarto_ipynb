@@ -1,0 +1,326 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"Visualiation des données\"\n",
+        "author: \"Anasse Yahanan\"\n",
+        "date: \"2025-01-12\"\n",
+        "categories: [news, code, python, analysis]\n",
+        "image: \"mpg.png\"\n",
+        "---\n",
+        "\n",
+        "\n",
+        "## Projet de Data Science\n",
+        "\n",
+        "### Présentation\n",
+        "\n",
+        "Vous envisagez de sortir voir un film. pour ce faire vous decidez de faire confiance aux critiques et évaluation en ligne. Cependant vous êtes convaincu l'entreprise qui affichie les notes gagne de l'argent en vandant les billets. Aussi une question vous vient à l'esprit : Est-ce que l'entreprise à tendance à sur-évaluer les films avec de meilleurs notes que celle qu'ils devraient obtenir ?\n",
+        "\n",
+        "### Objectif\n",
+        "\n",
+        "Utilisez les compétences en pandas et data viz pour déterminer si les notes de Fandango en 2015 etaient orientées vers une meilleures évaluationnotation des films dans le but de vendre plus de billet.\n",
+        "\n",
+        "### Methodologie\n",
+        "\n",
+        "Comparer les note des Fandango avec celles de l'article du site 538 [Clique ici](https://github.com/fivethirtyeight/data)\n",
+        "\n",
+        "--------------------------------------------------------------------------------\n",
+        "\n",
+        "### Presentation des données\n",
+        "\n",
+        "Data 1 : **all_sites_scores.csv**\n",
+        "\n",
+        "ce dataset contient tous les films qui ont une note Rotten Tomatoes, une note RT User, une note Metacritic, une note note Metacritic User, une note IMDb, et au moins 30 critiques de fans sur Fandango. Les données ont été extraites de 24 août 2015\n",
+        "\n",
+        "![](im1.png)\n",
+        "\n",
+        "\n",
+        "Data 2 : **fandango_scrape.csv**\n",
+        "\n",
+        "contient tous les films de l'article 538 tirés de Fandango\n",
+        "\n",
+        "![](im2.png)\n",
+        "--------------------------------------------------------------------------------\n",
+        "\n",
+        "\n",
+        "### Importation des bibliothèques\n"
+      ],
+      "id": "829042e7"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "import matplotlib.pyplot as plt \n",
+        "import seaborn as sns "
+      ],
+      "id": "635d5f36",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### Importation du premier dataset \n",
+        "\n",
+        "  - Importoation du dataset **fandango_scrape.csv**\n"
+      ],
+      "id": "68fcd73a"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "fandango = pd.read_csv(\"fandango_scrape.csv\")"
+      ],
+      "id": "09122da5",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "  - Exploration des proprités du datasets et head \n"
+      ],
+      "id": "d13d7c63"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "fandango.head()"
+      ],
+      "id": "f44af509",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "fandango.info()"
+      ],
+      "id": "50e8153e",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "fandango.describe().transpose()"
+      ],
+      "id": "5e032e0c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "- **Explorons la popularité d'un film et son classement** \n"
+      ],
+      "id": "bff7a84e"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "fig, ax = plt.subplots(figsize = (4,3))\n",
+        "\n",
+        "# graphique \n",
+        "scatter = ax.scatter(\n",
+        "  x = fandango['RATING'],\n",
+        "  y = fandango['VOTES'],\n",
+        "  c = fandango['RATING'],\n",
+        ")\n",
+        "\n",
+        "# personnalisation\n",
+        "ax.set(\n",
+        "  title = \"Popularité des films et leurs classement\",\n",
+        "  xlabel = \"Notes attribuées par les spectateurs (RATING)\",\n",
+        "  ylabel = \"Classement par vote (VOTE)\"\n",
+        "  )\n",
+        "\n",
+        "plt.show()"
+      ],
+      "id": "008284d4",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "La popularité des films semblent être en accord avec les votes \n",
+        "il nous faudra explorer la correlation etre les variables \n",
+        "pour comprendre si les notes (STARS) afichées par fandango \n",
+        "évoluent dans le même sens que la note des spectateus (RATING)\n",
+        "\n",
+        "\n",
+        "\n",
+        "- **Explorons la corrélation entre les variables** \n"
+      ],
+      "id": "753fcde8"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "fandango[['STARS','RATING', 'VOTES']].corr()"
+      ],
+      "id": "dcc5e635",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "les variables STARS et RATING ne sont pas parfaitement corrélées.\n",
+        "**hypotheses** :Il semble y avoir un ecart entre les scores attribués par les spectateurs aux films et celles attribuées a fandango\n",
+        "\n",
+        "\n",
+        "- **Création d'une nouvele colonnes contenant la date de sortie des films** \n"
+      ],
+      "id": "7e6876f0"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "title = 'Nom du titre du film (Annee)'"
+      ],
+      "id": "08d70598",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "title.split('(')[-1].replace(')', '')"
+      ],
+      "id": "f8174b1a",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "fandango['YEAR'] =  fandango['FILM'].apply(lambda title: title.split('(')[-1].replace(')', '') )"
+      ],
+      "id": "0d61add6",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "fandango"
+      ],
+      "id": "66cd36ef",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "- **Explorons le nombre de film par Année** \n"
+      ],
+      "id": "a6f9c8f2"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "fandango['YEAR'].value_counts()"
+      ],
+      "id": "0329b525",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "- **Explorons le top 10 des films avec le plus grand nombre de votes**\n"
+      ],
+      "id": "ae6b2b5c"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "fandango.nlargest(10, 'VOTES')"
+      ],
+      "id": "cf0fe7c2",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "- **Explorons le nombre de films  avec 0/aucun votes**\n"
+      ],
+      "id": "f22f8dae"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "fandango[fandango['VOTES'] == 0]"
+      ],
+      "id": "bfd956c6",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "- **Extraction des films qui ont connu au moins un vote**\n"
+      ],
+      "id": "de6cd631"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "df_fandango = fandango[(fandango['VOTES'] > 0)]"
+      ],
+      "id": "a7531d58",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "- **Creons un graphique qui affiche la distribustion des note (STARS) par rapport à l'évolution réelle des votes (RATTING)**\n"
+      ],
+      "id": "7b51073a"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "C:\\Users\\Yahnn\\Documents\\.virtualenvs\\r-reticulate\\share\\jupyter\\kernels\\python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

@@ -42,7 +42,6 @@ contient tous les films de l'article 538 tirés de Fandango
 ### Importation des bibliothèques
 
 ```{python}
-import warnings
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt 
@@ -75,11 +74,33 @@ fandango.describe().transpose()
 
 - **Explorons la popularité d'un film et son classement** 
 
+
 ```{python}
-plt.figure(figsize =(4,2),dpi=150)
-sns.scatterplot(data = fandango,x = 'RATING', y = 'VOTES')
-plt.show();
+fig, ax = plt.subplots(figsize = (4,3))
+
+# graphique 
+scatter = ax.scatter(
+  x = fandango['RATING'],
+  y = fandango['VOTES'],
+  c = fandango['RATING'],
+)
+
+# personnalisation
+ax.set(
+  title = "Popularité des films et leurs classement",
+  xlabel = "Notes attribuées par les spectateurs (RATING)",
+  ylabel = "Classement par vote (VOTE)"
+  )
+
+plt.show()
 ```
+
+
+La popularité des films semblent être en accord avec les votes 
+il nous faudra explorer la correlation etre les variables 
+pour comprendre si les notes (STARS) afichées par fandango 
+évoluent dans le même sens que la note des spectateus (RATING)
+
 
 
 - **Explorons la corrélation entre les variables** 
@@ -89,8 +110,9 @@ fandango[['STARS','RATING', 'VOTES']].corr()
 ```
 
 
-**hypotheses** : les variables STARS et RATING ne sont pas parfaitement corrélées.
-Il semble y avoir un ecart entre les scores attribués aux films et les étoiles                 
+les variables STARS et RATING ne sont pas parfaitement corrélées.
+**hypotheses** :Il semble y avoir un ecart entre les scores attribués par les spectateurs aux films et celles attribuées a fandango
+
 
 - **Création d'une nouvele colonnes contenant la date de sortie des films** 
 
@@ -120,6 +142,7 @@ fandango
 fandango['YEAR'].value_counts()
 ```
 
+
 - **Explorons le top 10 des films avec le plus grand nombre de votes**
 
 ```{python}
@@ -140,4 +163,15 @@ df_fandango = fandango[(fandango['VOTES'] > 0)]
 
 
  
+- **Creons un graphique qui affiche la distribustion des note (STARS) par rapport à l'évolution réelle des votes (RATTING)**
+
+```{python}
+sns.kdeplot(data = df_fandango, x ='RATING')
+```
+
+
+
+
+
+
 
