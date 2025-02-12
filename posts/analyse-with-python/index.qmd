@@ -1,0 +1,7 @@
+---
+title: "Visualiation des données"
+author: "Anasse Yahanan"
+date: "2025-02-11"
+categories: [news, code, python, analysis]
+image: "mpg.png"
+---
