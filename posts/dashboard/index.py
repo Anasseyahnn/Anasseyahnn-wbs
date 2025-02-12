@@ -174,14 +174,14 @@ def add_predictions(input_data):
     
     # diagnostic 
     if prediction[0] == 0:
-        st.write("<span class='diagnosis benign'>Tumeur Benigne</span>", unsafe_allow_html=True)
+        st.write("<span class='diagnosis malicious'>Tumeur Maligne</span>", unsafe_allow_html=True)
     else:
-        st.write("<span class='diagnosis malicious'>Tumeur Maligne</span>",unsafe_allow_html=True)
+        st.write("<span class='diagnosis benign'>Tumeur Benigne</span>",unsafe_allow_html=True)
     
     
     
-    st.write("Probabilite de tumeur benigne", model.predict_proba(input_array_scaled)[0][0])
-    st.write("Probabilite de tumeur maligne", model.predict_proba(input_array_scaled)[0][1])
+    st.write("Probabilite de tumeur benigne", model.predict_proba(input_array_scaled)[0][1])
+    st.write("Probabilite de tumeur maligne", model.predict_proba(input_array_scaled)[0][0])
     
     
     st.write("Cette application a été développée dans le but de fournir une estimation basée sur des données cliniques entrées par l'utilisateur. Les résultats fournis par cette application ne remplacent en aucun cas l'avis médical professionnel.")
