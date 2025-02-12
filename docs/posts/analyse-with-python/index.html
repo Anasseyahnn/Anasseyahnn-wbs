@@ -217,38 +217,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="methodologie" class="level3">
 <h3 class="anchored" data-anchor-id="methodologie">Methodologie</h3>
 <p>Comparer les note des Fandango avec celles de l’article du site 538 <a href="https://github.com/fivethirtyeight/data">Clique ici</a></p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 100%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">### Presentation des données</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Data 1 : <strong>all_sites_scores.csv</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ce dataset contient tous les films qui ont une note Rotten Tomatoes, une note RT User, une note Metacritic, une note note Metacritic User, une note IMDb, et au moins 30 critiques de fans sur Fandango. Les données ont été extraites de 24 août 2015</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><img src="im1.png" class="img-fluid"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Data 2 : <strong>fandango_scrape.csv</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">contient tous les films de l’article 538 tirés de Fandango</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><img src="im2.png" class="img-fluid"></td>
-</tr>
-</tbody>
-</table>
+<hr>
 </section>
+<section id="presentation-des-données" class="level3">
+<h3 class="anchored" data-anchor-id="presentation-des-données">Presentation des données</h3>
+<p>Data 1 : <strong>all_sites_scores.csv</strong></p>
+<p>ce dataset contient tous les films qui ont une note Rotten Tomatoes, une note RT User, une note Metacritic, une note note Metacritic User, une note IMDb, et au moins 30 critiques de fans sur Fandango. Les données ont été extraites de 24 août 2015</p>
+<p><img src="im1.png" class="img-fluid"></p>
+<p>Data 2 : <strong>fandango_scrape.csv</strong></p>
+<p>contient tous les films de l’article 538 tirés de Fandango</p>
+</section>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"><img src="im2.png" class="img-fluid"></h2>
 <section id="importation-des-bibliothèques" class="level3">
 <h3 class="anchored" data-anchor-id="importation-des-bibliothèques">Importation des bibliothèques</h3>
-<div id="ecb05aac" class="cell" data-execution_count="1">
+<div id="58ae1705" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -261,13 +245,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Importoation du dataset <strong>fandango_scrape.csv</strong></li>
 </ul>
-<div id="10ecde80" class="cell" data-execution_count="2">
+<div id="8a790a42" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fandango <span class="op">=</span> pd.read_csv(<span class="st">"fandango_scrape.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Exploration des proprités du datasets et head</li>
 </ul>
-<div id="daa99c97" class="cell" data-execution_count="3">
+<div id="cdaa8139" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fandango.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -325,7 +309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="078fb3cf" class="cell" data-execution_count="4">
+<div id="d105b5f5" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fandango.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
@@ -341,7 +325,7 @@ dtypes: float64(2), int64(1), object(1)
 memory usage: 15.9+ KB</code></pre>
 </div>
 </div>
-<div id="2ac4fb79" class="cell" data-execution_count="5">
+<div id="7a9fb8ca" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fandango.describe().transpose()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
@@ -404,7 +388,7 @@ memory usage: 15.9+ KB</code></pre>
 <ul>
 <li><strong>Explorons la popularité d’un film et son classement</strong></li>
 </ul>
-<div id="4728635a" class="cell" data-execution_count="6">
+<div id="008cb1cb" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span>(<span class="dv">4</span>,<span class="dv">2</span>),dpi<span class="op">=</span><span class="dv">150</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data <span class="op">=</span> fandango,x <span class="op">=</span> <span class="st">'RATING'</span>, y <span class="op">=</span> <span class="st">'VOTES'</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>plt.show()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -419,7 +403,7 @@ memory usage: 15.9+ KB</code></pre>
 <ul>
 <li><strong>Explorons la corrélation entre les variables</strong></li>
 </ul>
-<div id="54738c40" class="cell" data-execution_count="7">
+<div id="57b5a7c4" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fandango[[<span class="st">'STARS'</span>,<span class="st">'RATING'</span>, <span class="st">'VOTES'</span>]].corr()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
@@ -463,19 +447,19 @@ memory usage: 15.9+ KB</code></pre>
 <ul>
 <li><strong>Création d’une nouvele colonnes contenant la date de sortie des films</strong></li>
 </ul>
-<div id="e534cdfe" class="cell" data-execution_count="8">
+<div id="59e3f11c" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>title <span class="op">=</span> <span class="st">'Nom du titre du film (Annee)'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="786e8873" class="cell" data-execution_count="9">
+<div id="7d9dda28" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>title.split(<span class="st">'('</span>)[<span class="op">-</span><span class="dv">1</span>].replace(<span class="st">')'</span>, <span class="st">''</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>'Annee'</code></pre>
 </div>
 </div>
-<div id="fb15b97f" class="cell" data-execution_count="10">
+<div id="93ea6e24" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fandango[<span class="st">'YEAR'</span>] <span class="op">=</span>  fandango[<span class="st">'FILM'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> title: title.split(<span class="st">'('</span>)[<span class="op">-</span><span class="dv">1</span>].replace(<span class="st">')'</span>, <span class="st">''</span>) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="129f79b8" class="cell" data-execution_count="11">
+<div id="5bf8bb19" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fandango</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <div>
@@ -591,7 +575,7 @@ memory usage: 15.9+ KB</code></pre>
 <ul>
 <li><strong>Explorons le nombre de film par Année</strong></li>
 </ul>
-<div id="c3985dd7" class="cell" data-execution_count="12">
+<div id="2118d385" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fandango[<span class="st">'YEAR'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>YEAR
@@ -606,7 +590,7 @@ Name: count, dtype: int64</code></pre>
 <ul>
 <li><strong>Explorons le top 10 des films avec le plus grand nombre de votes</strong></li>
 </ul>
-<div id="8e470850" class="cell" data-execution_count="13">
+<div id="2b30850e" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fandango.nlargest(<span class="dv">10</span>, <span class="st">'VOTES'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <div>
@@ -709,6 +693,128 @@ Name: count, dtype: int64</code></pre>
 
 </div>
 </div>
+</div>
+<ul>
+<li><strong>Explorons le nombre de films avec 0/aucun votes</strong></li>
+</ul>
+<div id="9a948ae6" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>fandango[fandango[<span class="st">'VOTES'</span>] <span class="op">==</span> <span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">FILM</th>
+<th data-quarto-table-cell-role="th">STARS</th>
+<th data-quarto-table-cell-role="th">RATING</th>
+<th data-quarto-table-cell-role="th">VOTES</th>
+<th data-quarto-table-cell-role="th">YEAR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">435</td>
+<td>6 Years (2015)</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0</td>
+<td>2015</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">436</td>
+<td>7 Minutes (2015)</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0</td>
+<td>2015</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">437</td>
+<td>A Year in Champagne (2015)</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0</td>
+<td>2015</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">438</td>
+<td>Balls Out (2015)</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0</td>
+<td>2015</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">439</td>
+<td>Before I Wake (2015)</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0</td>
+<td>2015</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">499</td>
+<td>Valiyavan (2015)</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0</td>
+<td>2015</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">500</td>
+<td>WWE SummerSlam 2015 (2015)</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0</td>
+<td>2015</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">501</td>
+<td>Yagavarayinum Naa Kaakka (2015)</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0</td>
+<td>2015</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">502</td>
+<td>Yesterday, Today and Tomorrow (1964)</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0</td>
+<td>1964</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">503</td>
+<td>Zarafa (2012)</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0</td>
+<td>2012</td>
+</tr>
+</tbody>
+</table>
+
+<p>69 rows × 5 columns</p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Extraction des films qui ont connu au moins un vote</strong></li>
+</ul>
+<div id="ca62f881" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df_fandango <span class="op">=</span> fandango[(fandango[<span class="st">'VOTES'</span>] <span class="op">&gt;</span> <span class="dv">0</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
