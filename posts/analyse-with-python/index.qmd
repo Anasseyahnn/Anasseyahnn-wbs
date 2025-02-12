@@ -20,11 +20,74 @@ Utilisez les compétences en pandas et data viz pour déterminer si les notes de
 
 Comparer les note des Fandango avec celles de l'article du site 538 [Clique ici](https://github.com/fivethirtyeight/data)
 
+--------------------------------------------------------------------------------
 ### Presentation des données
 
-**all_sites_scores.csv**
+Data 1 : **all_sites_scores.csv**
 
 ce dataset contient tous les films qui ont une note Rotten Tomatoes, une note RT User, une note Metacritic, une note note Metacritic User, une note IMDb, et au moins 30 critiques de fans sur Fandango. Les données ont été extraites de 24 août 2015
 
 ![](im1.png)
+
+
+Data 2 : **fandango_scrape.csv**
+
+contient tous les films de l'article 538 tirés de Fandango
+
+![](im2.png)
+--------------------------------------------------------------------------------
+
+### Importation des bibliothèques
+
+```{python}
+import warnings
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt 
+import seaborn as sns 
+warnings.simplefilter(action="ignore", category=FutureWarning)
+```
+
+
+
+### Importation du premier dataset 
+
+  - Importoation du dataset **fandango_scrape.csv**
+
+```{python}
+fandango = pd.read_csv("fandango_scrape.csv")
+```
+
+  - Exploration des proprités du datasets et head 
+
+```{python}
+fandango.head()
+```
+
+```{python}
+fandango.info()
+```
+
+```{python}
+fandango.describe().transpose()
+```
+
+- **Explorons la popularité d'un film et son classement** 
+
+```{python}
+plt.figure(figsize =(10,4),dpi=150)
+sns.scatterplot(data = fandango,x = 'RATING', y = 'VOTES')
+plt.show();
+```
+
+
+- **Explorons la corrélation entre les variables** 
+
+```{python}
+fandango[['STARS','RATING', 'VOTES']].corr()
+```
+
+**hypotheses** : les variables STARS et RATING ne sont pas parfaitement corrélées.
+Il semble y avoir un ecart entre les scores attribués aux films et les étoiles                 
+
 

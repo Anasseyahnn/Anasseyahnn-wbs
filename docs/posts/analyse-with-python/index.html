@@ -22,10 +22,44 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -68,6 +102,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../../styles.css">
@@ -180,12 +217,250 @@ ul.task-list li input[type="checkbox"] {
 <section id="methodologie" class="level3">
 <h3 class="anchored" data-anchor-id="methodologie">Methodologie</h3>
 <p>Comparer les note des Fandango avec celles de l’article du site 538 <a href="https://github.com/fivethirtyeight/data">Clique ici</a></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">### Presentation des données</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Data 1 : <strong>all_sites_scores.csv</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ce dataset contient tous les films qui ont une note Rotten Tomatoes, une note RT User, une note Metacritic, une note note Metacritic User, une note IMDb, et au moins 30 critiques de fans sur Fandango. Les données ont été extraites de 24 août 2015</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><img src="im1.png" class="img-fluid"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Data 2 : <strong>fandango_scrape.csv</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">contient tous les films de l’article 538 tirés de Fandango</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><img src="im2.png" class="img-fluid"></td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="presentation-des-données" class="level3">
-<h3 class="anchored" data-anchor-id="presentation-des-données">Presentation des données</h3>
-<p><strong>all_sites_scores.csv</strong></p>
-<p>ce dataset contient tous les films qui ont une note Rotten Tomatoes, une note RT User, une note Metacritic, une note note Metacritic User, une note IMDb, et au moins 30 critiques de fans sur Fandango. Les données ont été extraites de 24 août 2015</p>
-<p><img src="im1.png" class="img-fluid"></p>
+<section id="importation-des-bibliothèques" class="level3">
+<h3 class="anchored" data-anchor-id="importation-des-bibliothèques">Importation des bibliothèques</h3>
+<div id="74dce3c7" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>warnings.simplefilter(action<span class="op">=</span><span class="st">"ignore"</span>, category<span class="op">=</span><span class="pp">FutureWarning</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="importation-du-premier-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="importation-du-premier-dataset">Importation du premier dataset</h3>
+<ul>
+<li>Importoation du dataset <strong>fandango_scrape.csv</strong></li>
+</ul>
+<div id="493642da" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fandango <span class="op">=</span> pd.read_csv(<span class="st">"fandango_scrape.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Exploration des proprités du datasets et head</li>
+</ul>
+<div id="82b00b5e" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fandango.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">FILM</th>
+<th data-quarto-table-cell-role="th">STARS</th>
+<th data-quarto-table-cell-role="th">RATING</th>
+<th data-quarto-table-cell-role="th">VOTES</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Fifty Shades of Grey (2015)</td>
+<td>4.0</td>
+<td>3.9</td>
+<td>34846</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Jurassic World (2015)</td>
+<td>4.5</td>
+<td>4.5</td>
+<td>34390</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>American Sniper (2015)</td>
+<td>5.0</td>
+<td>4.8</td>
+<td>34085</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Furious 7 (2015)</td>
+<td>5.0</td>
+<td>4.8</td>
+<td>33538</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Inside Out (2015)</td>
+<td>4.5</td>
+<td>4.5</td>
+<td>15749</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="0dcd312b" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fandango.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 504 entries, 0 to 503
+Data columns (total 4 columns):
+ #   Column  Non-Null Count  Dtype  
+---  ------  --------------  -----  
+ 0   FILM    504 non-null    object 
+ 1   STARS   504 non-null    float64
+ 2   RATING  504 non-null    float64
+ 3   VOTES   504 non-null    int64  
+dtypes: float64(2), int64(1), object(1)
+memory usage: 15.9+ KB</code></pre>
+</div>
+</div>
+<div id="c30eb042" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fandango.describe().transpose()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">std</th>
+<th data-quarto-table-cell-role="th">min</th>
+<th data-quarto-table-cell-role="th">25%</th>
+<th data-quarto-table-cell-role="th">50%</th>
+<th data-quarto-table-cell-role="th">75%</th>
+<th data-quarto-table-cell-role="th">max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">STARS</td>
+<td>504.0</td>
+<td>3.558532</td>
+<td>1.563133</td>
+<td>0.0</td>
+<td>3.5</td>
+<td>4.0</td>
+<td>4.50</td>
+<td>5.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">RATING</td>
+<td>504.0</td>
+<td>3.375794</td>
+<td>1.491223</td>
+<td>0.0</td>
+<td>3.1</td>
+<td>3.8</td>
+<td>4.30</td>
+<td>5.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">VOTES</td>
+<td>504.0</td>
+<td>1147.863095</td>
+<td>3830.583136</td>
+<td>0.0</td>
+<td>3.0</td>
+<td>18.5</td>
+<td>189.75</td>
+<td>34846.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Explorons la popularité d’un film et son classement</strong></li>
+</ul>
+<div id="65691209" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span>(<span class="dv">10</span>,<span class="dv">4</span>),dpi<span class="op">=</span><span class="dv">150</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data <span class="op">=</span> fandango,x <span class="op">=</span> <span class="st">'RATING'</span>, y <span class="op">=</span> <span class="st">'VOTES'</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>plt.show()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-7-output-1.png" width="1302" height="556" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Explorons la corrélation entre les variables</strong></li>
+</ul>
+<div id="2b494f8b" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fandango[[<span class="st">'STARS'</span>,<span class="st">'RATING'</span>, <span class="st">'VOTES'</span>]].corr()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">STARS</th>
+<th data-quarto-table-cell-role="th">RATING</th>
+<th data-quarto-table-cell-role="th">VOTES</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">STARS</td>
+<td>1.000000</td>
+<td>0.994696</td>
+<td>0.164218</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">RATING</td>
+<td>0.994696</td>
+<td>1.000000</td>
+<td>0.163764</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">VOTES</td>
+<td>0.164218</td>
+<td>0.163764</td>
+<td>1.000000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><strong>hypotheses</strong> : les variables STARS et RATING ne sont pas parfaitement corrélées. Il semble y avoir un ecart entre les scores attribués aux films et les étoiles</p>
 
 
 </section>
