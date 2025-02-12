@@ -1,8 +1,8 @@
 ---
-title: "Analyse des donnees MPG"
+title: "Visualisation des données avec Python"
 author: "Anasse Yahanan"
 date: "2025-02-11"
-categories: [News, Code, Python, Analysis, Machine Learning]
+categories: [news, code, python, analysis, machine learning]
 image: "mon.png"
 ---
 
@@ -10,8 +10,10 @@ image: "mon.png"
 ```{python}
 import pandas as pd
 import numpy as np 
-import streamlit as st
 ```
+
+
+
 
 
 
