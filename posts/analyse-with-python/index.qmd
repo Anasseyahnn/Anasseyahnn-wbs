@@ -76,7 +76,7 @@ fandango.describe().transpose()
 
 
 ```{python}
-fig, ax = plt.subplots(figsize = (4,3))
+fig, ax = plt.subplots(figsize = (9,5))
 
 # graphique 
 scatter = ax.scatter(
@@ -159,15 +159,14 @@ fandango[fandango['VOTES'] == 0]
 
 ```{python}
 df_fandango = fandango[(fandango['VOTES'] > 0)]
+df_fandango
 ```
 
 
  
 - **Creons un graphique qui affiche la distribustion des note (STARS) par rapport à l'évolution réelle des votes (RATTING)**
 
-```{python}
-sns.kdeplot(data = df_fandango, x ='RATING')
-```
+
 
 
 
