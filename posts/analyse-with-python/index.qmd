@@ -45,7 +45,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt 
 import seaborn as sns 
-warnings.simplefilter(action="ignore", category=FutureWarning)
 ```
 
 
@@ -75,7 +74,7 @@ fandango.describe().transpose()
 - **Explorons la popularité d'un film et son classement** 
 
 ```{python}
-plt.figure(figsize =(10,4),dpi=150)
+plt.figure(figsize =(4,2),dpi=150)
 sns.scatterplot(data = fandango,x = 'RATING', y = 'VOTES')
 plt.show();
 ```
@@ -87,7 +86,41 @@ plt.show();
 fandango[['STARS','RATING', 'VOTES']].corr()
 ```
 
+
 **hypotheses** : les variables STARS et RATING ne sont pas parfaitement corrélées.
 Il semble y avoir un ecart entre les scores attribués aux films et les étoiles                 
 
+- **Création d'une nouvele colonnes contenant la date de sortie des films** 
+
+```{python}
+title = 'Nom du titre du film (Annee)'
+```
+
+
+```{python}
+title.split('(')[-1].replace(')', '')
+```
+
+```{python}
+fandango['YEAR'] =  fandango['FILM'].apply(lambda title: title.split('(')[-1].replace(')', '') )
+```
+
+
+
+```{python}
+fandango
+```
+
+
+- **Explorons le nombre de film par Année** 
+
+```{python}
+fandango['YEAR'].value_counts()
+```
+
+- **Explorons le top 10 des films avec le plus grand nombre de votes**
+
+```{python}
+fandango.nlargest(10, 'VOTES')
+```
 
