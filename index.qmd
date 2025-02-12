@@ -1,0 +1,18 @@
+---
+title: "Anassé Yahanan"
+image: iamge.png
+about:
+  template: jolla
+  links:
+    - icon: twitter
+      text: Twitter
+      href: https://x.com/anasse_yahanan
+    - icon: linkedin
+      text: LinkedIn
+      href: https://linkedin.com/in/anasse-yahanan-bouagba-3b39aa242/
+    - icon: github
+      text: Github
+      href: https://github.com/Anasseyahnn
+---
+
+Statisticien, Data Analyst et Data Scientist, je transforme des données complexes en insights stratégiques pour une prise de décision éclairée. Expert en R, Python et SQL, je conçois des modèles statistiques, automatise des processus et développe des outils interactifs avec RShiny et Streamlit. J'ai travaillé sur des projets variés, allant de la lutte contre la désinformation à l'optimisation marketing, en passant par la prévision des ventes et les systèmes de recommandation. Formateur en R et Python, je partage mes compétences pour renforcer les capacités en analyse de données. Passionné par les données, je combine rigueur analytique et créativité technique pour créer un impact mesurable.

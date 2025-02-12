@@ -1,0 +1,17 @@
+{
+  "hash": "cbc070550870902c68052377c6cec6ed",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Post With Code\"\nauthor: \"Harlow Malloc\"\ndate: \"2025-02-11\"\ncategories: [news, code, analysis]\nimage: \"image.jpg\"\n---\n\n\n\n\n\n# Presentation du projet\n\n## Contexte\n\nCe projet s'inscrit dans le cadre de mon portofolio et a pour but de presenter mes compétence en analyse de données, visualisation et modélisation statistique avec R et Rstudio . Les données utilisées proviennent du jeu de données mpg inclut dans le package ggplot2. Elle contient des informations sur la consommation de carburants de 234 vehicules, modèles de 1999 à 2008 ainsi que divers caractéristiques techniques et descriptives de ces véhicules.\n\n## Objectif\n\nExplorer et analyser les relations entre les differentes variables du jeu de données mpg\n\nspécifiquement il s'agirat :\n\n  - D'explorer les données : comprendre la structure des données , identifier les variables clés et détecter les anomalies, valeurs aberrantes ou manquantes, creer si possible de nouvelles variables\n\n  - Réaliser une analyse descriptive : resumer les principales caractéristiques des données à l'aide de statistiques descriptives\n\n  - Analyser la consommation de varburant : Etudier les facteurs qui influent la consommation de carburant (milles par gallon [mpg ]\n\n  - Modeliser : Construstruire des modele de regression pour predire la consommation\n\n  - Visualiser les resultats : Créer des visuels informatfs pour communuquer les résultats\n  \n  \n## Résultats\n\n- Les principaux facteurs qui influencent la consommation de carburant des vehicules sont identifiés\n\n- Les insights sur les tendances et les patterns contenus dans la données sont fournit\n\n- Des recommandations basées sur les résultats de l'analyse sont proposées\n\n## Méthodologie\n\n- Importer les données mpg\n\n- Netoyer les données\n\n    - valeurs manquantes\n\n    - valeurs aberrantes\n\n    - doublons\n\n- Analyse exploratoire (EDA)\n\n    - feature engineering\n\n    - statistique descriptive\n\n    - Visualiser et communiquer les résultats\n\n\n- segmentation (K-means)\n\n------------------------------------------------------------------------------------------------\n\n#### Packages utilisés\n\nL'ensemble des packages utilisés pour la réalisation de ce projet sont: \n\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\nlibrary(naniar)\nlibrary(DT)\nlibrary(psych)\nlibrary(ggheatmap)\nlibrary(reshape2)\nlibrary(ggplot2)\nlibrary(ggforce)\nlibrary(glue)\nlibrary(ggdist)\n```\n:::\n\n\n\n\n\n\n## I. Analyse Exploratoire des données\n\n### 1.1 Nétoyage & formatage des données\n\n    - Valeurs manquantes\n    \n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nmpg %>% \n  vis_miss()\n```\n\n::: {.cell-output-display}\n![](index_old_files/figure-html/unnamed-chunk-2-1.png){width=672}\n:::\n:::\n\n\n\n\n\n    \n    - valeurs en double\n\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nmpg <- \n  mpg %>% \n  unique()\n```\n:::\n\n\n\n\n\n\n### 1.2 Ingénierie des données (feature engineering)\n\n    - Foratage des données\n\n    Tranformation de toutes les varibles de type *chr* en *factor*\n",
+    "supporting": [
+      "index_old_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

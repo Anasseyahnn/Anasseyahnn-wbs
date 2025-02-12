@@ -1,0 +1,548 @@
+---
+title: "Analyse des donnees MPG"
+author: "Anasse Yahanan"
+date: "2025-02-11"
+categories: [news, code, R, analysis]
+image: "mpg.png"
+---
+
+## Presentation du projet
+
+### Contexte
+
+Les données utilisées proviennent du jeu de données mpg inclut dans le package ggplot2. La base de données contient des informations sur la consommation de carburants de 234 vehicules, modèles de 1999 à 2008 ainsi que divers caractéristiques techniques et descriptives de ces véhicules.
+
+### Objectif
+
+-   Explorer et analyser les relations entre les différentes variables du jeu de données `mpg` afin de fournir des recommandations aux acheteurs concernant la consommation de carburant des véhicules.
+
+    spécifiquement il s'agirat :
+
+    -   ***D'explorer les données*** : comprendre la structure des données , identifier les variables clés et détecter les anomalies, valeurs aberrantes ou manquantes, creer si possible de nouvelles variables
+
+    -   ***Réaliser une analyse descriptive :*** resumer les principales caractéristiques des données à l'aide de statistiques descriptives
+
+    -   ***Analyser la consommation de varburant*** : Etudier les facteurs qui influent la consommation de carburant (milles par gallon \[mpg \]
+
+    -   ***Modeliser*** : Construstruire des modele de regression pour predire la consommation
+
+    -   Visualiser les resultats : Créer des visuels informatfs pour communuquer les résultats
+
+### Méthodologie
+
+-   Importer les données mpg
+-   Netoyer les données
+    -   valeurs manquantes
+    -   valeurs aberrantes
+    -   doublons
+-   Analyse exploratoire (EDA)
+    -   feature engineering
+    -   statistique descriptive
+-   Visualiser et communiquer les résultats
+    -   Bivariées des variables pertinentes
+    -   multivariées
+    -   segmentation (K-means)
+
+### Résultats
+
+-   Les principaux facteurs qui influencent la consommation de carburant des vehicules sont identifiés
+
+-   Les insights sur les tendances et les patterns contenus dans la données sont fournit
+
+-   Des recommandations basées sur les résultats de l'analyse sont proposées
+
+------------------------------------------------------------------------
+
+### Packages utilisés
+
+L'ensemble des packages utilisés pour la réalisation de ce projet sont :
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(naniar)
+library(DT)
+library(psych)
+library(ggheatmap)
+library(reshape2)
+library(ggplot2)
+library(ggforce)
+library(glue)
+library(ggdist)
+```
+
+### I. Analyse Exploratoire des données
+
+#### 1.1 Nétoyage & formatage des données
+
+-   **Valeurs manquantes - valeurs en double**
+
+    -   Le graphique totalement gris montre que les données mpg ne contiennent pas de valeurs manquantes
+
+    -   L'ensembles des données ne contiennent pas de doublon
+
+```{r}
+mpg %>% 
+  vis_miss()
+```
+
+------------------------------------------------------------------------
+
+#### 1.2 Ingénierie des données (feature engineering)
+
+-   **Foratage des données**
+
+    Tranformation de toutes les varibles de type *`chr`* en *`factor`*
+
+```{r}
+mpg_format <- 
+  mpg %>% 
+  mutate_if(is.character, as.factor)
+```
+
+-   **Création de nouvelles variables**
+
+    -   consommation moyenne de carburant (avg_mpg) \[ avg_mpg = (cty + hwy) /2 \]
+
+    -   catégorisation de la consommation \[ `Faible` : agv_mpg\<20; `Moyenne` : 20\<=avg_mpg\<=40 sinon `Elevée` \]
+
+    -   émission de CO2 des véhicules \[ 1 gallon —\> 8.89 kg CO2 ; 1 mille/gallon —\>0.425 kg CO2 \]
+
+    -   catégorisation de la cylindré \[ `Petite`: displ\<2.0, `Moyenne` : 2.0\<=displ\<=4.0 sinon *`Grande`* \]
+
+```{r, warning=FALSE}
+mpg_aumente <- 
+  mpg_format %>% 
+  mutate(
+    # calcule de avg_mpg
+    avg_mpg = (cty + hwy)/2,
+    # catégorisation de la consommation 
+         fuel_efficiency = case_when(
+           avg_mpg < 20 ~ "Faible",
+           avg_mpg >= 20 & avg_mpg <=30 ~ "Moyenne",
+           TRUE ~ "Elevee"
+         ),
+    # émission de CO2
+         co2_emission = round((8887/avg_mpg) * 0.621371),
+    # catégorisation de la cylindrée 
+         displ_category = case_when(
+           displ < 2.0 ~ "Petite",
+           displ >= 2.0 & displ <= 4.0 ~ "Moyenne",
+           TRUE ~ "Grande"
+         ))
+```
+
+#### 1.3 Présentation du dictionnaire et de la base de données
+
+-   **Dictionnaire des données**
+
+| **Variables** | **Descriptif** | **Nature** | **Modalités** |
+|:-----------------|:----------------:|:----------------:|:----------------:|
+|  | **Variables initiales** |  |  |
+| *`manufacturer`* | Constructeur de véhicule | factor | audi, toyota, etc... |
+| *`model`* | Modèle du véhicule | factor | a4, a4 quatro, etc... |
+| *`year`* | Année du modèle | int |  |
+| *`cyl`* | Nombre de cylindres | int |  |
+| `trans` | Type de transmission | factor | auto, manuel |
+| *`drv`* | Type de traction | factor | f : avant, r : propultion , 4 : 4x4 |
+| *`displ`* | cylindres du moteur (en littre) | int |  |
+| *`cty`* | Consommation en ville | int |  |
+| *`hwy`* | Consommation sur autoroute | int |  |
+| *`fl`* | Type de carburant | factor | p , etc... |
+| *`class`* | classe de véhicule | factor | suv, compact, etc... |
+|  | **Variables ajoutées (crées)** |  |  |
+| *`avg_mpg`* | consommation moyenne de carburant | int |  |
+| *`fuel_efficiency`* | catégorisation de la consommation | factor | Faible, Moyen, etc... |
+| *`CO2_emission`* | Quantité de CO2 émit par les véhicules | int |  |
+| *`displ_categoty`* | Catégorisation de la cylindré | factor | Petite, Moyenne, etc.. |
+
+: *`Source : Données mpg (ggplot2)`*
+
+-   **Présentation de la base de données**
+
+```{r}
+datatable(mpg_aumente, 
+          extensions = 'Buttons',
+          options = list(
+            dom = 'Bfrtip',
+            button = c('copy', 'csv', 'excel', 'pdf', 'print'),
+            pageLength = 10,
+            lengthMenu = c(5, 10, 15, 20),
+            searching = TRUE,
+            ordering = TRUE,
+            scrollX = TRUE
+          ),
+          caption = "Base de Données mpg Augmentée",
+          filter = "top")
+```
+
+#### 1.4 Statistiques Descriptives
+
+-   Résumé statistique des variables numériques
+
+```{r, message=FALSE}
+stat_num <- mpg_aumente %>% 
+  select_if(is.numeric) %>% 
+  select(!c("year","cyl")) %>% 
+  describe()
+# choix des statistique à visualiser 
+stat_num[, c("mean","sd","median","min","max","range","skew", "kurtosis")] %>% knitr::kable(digits = 2, caption = "Résumé Statistique des variables numériques")
+```
+
+-   Résumé statistique des variables catégorielle (factor)
+
+```{r, warning=FALSE}
+ mpg_aumente%>% 
+  mutate_if(is.character, as.factor) %>% 
+  select_if(is.factor) %>% 
+   select(-trans) %>% 
+  skimr::skim() %>% 
+   as_tibble() %>% 
+   mutate(variable = skim_variable,
+          modalite_unique = factor.n_unique,
+          top_modalite = factor.top_counts) %>%
+   select(variable,modalite_unique,top_modalite ) %>% 
+   knitr::kable(align = "c", 
+                caption = "Résumé Statistique des variables numériques")
+
+```
+
+------------------------------------------------------------------------
+
+### II. Visualisation des données
+
+#### **2.1 Visualisation de quelques variables numériques**
+
+-   Distribustion de la variable displ
+
+```{r, warning=FALSE}
+mpg_aumente %>% 
+  ggplot(aes(displ))+
+  geom_histogram(bins = 25) +
+  theme_minimal()+
+  labs(
+    subtitle = "Distribustion du nombre de cylindré (n = 234) ",
+    x = "Nombre de cylindres",
+    y = "",
+    caption = "Source : mpg data - ggplot2_package"
+  )
+```
+
+-   Distribustion de la variable avg_mpg
+
+```{r, warning=FALSE}
+mpg_aumente %>% 
+  ggplot(aes(avg_mpg))+
+  geom_histogram(bins = 25) +
+  theme_minimal()+
+  labs(
+    title = "Distribustion de la consommation moyenne (n = 234)",
+    x = "consomation de carburant(mille/gallon)",
+    y = "",
+    caption = "Source : mpg data - ggplot2_package"
+  )
+```
+
+#### **2.2 Visualisation de quelques variables catégorielles**
+
+-   Distribustion de la variable manufacturer
+
+```{r, message=FALSE, warning=FALSE}
+mpg_2008 = mpg_aumente %>% 
+  filter(year == 2008,
+         !(class %in% c("2seater","minivan"))) %>% 
+  mutate(
+    class = case_when(
+      class %in% c("compact", "subcompact") ~ '(Sub-)Compact',
+      class %in% c("pickup", "suv") ~ 'Pickup/SUV',
+      TRUE ~ str_to_title(class)
+    ),
+    manufacturer = str_to_title(manufacturer),
+    manufacturer = fct_infreq(manufacturer) |>  fct_rev()
+  )
+ 
+
+colors <- thematic::okabe_ito(4)
+graphe_decomposé = mpg_2008 %>% 
+  ggplot(aes(y = manufacturer, fill = class))+
+  geom_bar()+
+  theme_minimal(base_size = 10,
+                base_family = 'Source Sans Pro'
+  )+
+  scale_fill_manual(values = colors[1:3])+
+  facet_wrap(vars(class))+
+  labs(x = element_blank(), y = element_blank())+
+  theme(
+    panel.grid.minor = element_blank(),
+    panel.grid.major.y = element_blank(),
+    legend.position = 'none'
+  )
+
+
+total_plot = mpg_2008 %>% 
+  ggplot(aes(y = manufacturer))+
+  geom_bar(fill = colors[4])+
+  geom_vline(xintercept = 0)+
+  theme_minimal(base_size = 10, base_family = 'Source Sans Pro')+
+  scale_fill_manual(values = colors[1:3])+
+  scale_y_discrete(labels = element_blank())+
+  facet_wrap(vars('Total'))+
+  labs(x = element_blank(), y = element_blank())+
+  theme(
+    panel.grid.minor = element_blank(),
+    panel.grid.major.y = element_blank(),
+    legend.position = 'none'
+  )
+
+
+library(patchwork)
+graphe_decomposé + total_plot+
+  plot_annotation(
+    title = 'Vehicules par entreprise et par classe',
+    theme = theme(
+      element_text(size=12, family = 'Merriweather')
+    )
+  )
+
+```
+
+-   Distribustion de la variable trans
+
+```{r, warning=FALSE}
+colors <- c("dodgerblue4","firebrick2")
+
+mpg_aumente %>% 
+  mutate(
+   # transformation des modaités de trans en (auto ou manuel)
+    trans_two_modalities = case_when(
+      str_detect(trans, "auto") ~ "auto",
+      TRUE ~ "manuel"
+    ),
+    trans_two_modalities = str_to_title(trans_two_modalities)
+  ) %>% 
+  
+  group_by(trans_two_modalities) %>% 
+  summarise(nb_modalities = n(),
+            prop= round((nb_modalities*100)/234),
+            lab.ypos = cumsum(prop) - (0.3* prop),
+            prop_percent = str_c(prop, "%", sep = "")
+            ) %>% 
+  ungroup() %>% 
+  
+    ggplot(aes(x = 2,y = prop, fill = trans_two_modalities))+
+  geom_bar(width = 1,stat = "identity", color = "white")+
+  coord_polar("y", start = 0)+
+  geom_text(aes(y = lab.ypos, label = prop_percent))+
+  scale_fill_manual(values =colors)+
+  theme_void()+
+  labs(subtitle ="Distribustion des types de transmission des véhicules (n = 234)",
+       caption = "Source : mpg data - ggplot2_package",
+       fill = "Transmission")+
+  xlim(0.5,2.5)
+  
+```
+
+### III. Analyse des realations entre les variables
+
+#### **3.1 Matrice de corrélation**
+
+```{r, warning=FALSE}
+cov_matrix <-  mpg_aumente %>% 
+  select_if(is.numeric) %>% 
+  cor()
+
+cov_tibble <- cov_matrix %>% 
+  as_tibble(rownames = 'var_a') %>% 
+  pivot_longer(
+    -var_a,
+    names_to = "var_b",
+    values_to = "correlation"
+  )
+
+var_names <- unique(cov_tibble$var_a)
+cov_tibble_factored <-  cov_tibble %>% 
+  mutate(
+    var_a = factor(var_a, levels = var_names),
+    var_b = factor(var_b, levels = rev(var_names))
+  )
+ 
+  
+cov_tibble_factored %>% 
+  ggplot(aes(var_a, var_b))+
+  geom_tile(aes(fill = correlation), color = "black")+
+  geom_text(aes(label = round(correlation,2)),
+            color = ifelse(
+              abs(cov_tibble_factored$correlation) > 0.6,
+              'white',
+              'black'
+            ),
+            size = 3.5,
+            family = 'Source Sans Pro',
+            fontface = 'bold'
+            
+  )+
+  theme_minimal(
+    base_size = 12,
+    base_family = 'Source Sans Pro'
+  )+
+  labs(
+    x = element_blank(),
+    y = element_blank(),
+    fill = 'Correlation',
+    subtitle = "Intensité des liaisons entre les variable numérique mpg",
+    caption = "Source : mpg data - ggplot2_package",
+  )+
+  scale_fill_gradient2(
+    high = 'dodgerblue4',
+    mid = 'white',
+    low = 'firebrick2',
+    limits = c(-1,1),
+    midpoint = 0
+  )+
+  coord_cartesian(expand = FALSE)+
+  theme(legend.position = 'top')+
+  guides(
+    fill = guide_colorbar(
+      barwidth = unit(10, 'cm')
+    ),
+    x = guide_axis(n.dodge = 2)
+  )
+  
+
+  
+```
+
+**Hypothèse** :
+
+-   Une cylindré plus élevée est associée à une consommation plus faible (displ vs. avg_mpg )
+
+-   Une cylindré plus élevée est associée à des émissions de C02 plus élevée (displ & cyl vs. co2_emission)
+
+-   Les véhicules économes en villes le sont également sur autoroute (cty sv. hwy)
+
+#### **3.2 Facteurs qui influencent la consommation de carburant**
+
+-   **Comment la cylindrée influence -t-elle la consommation moyenne ? (avg_mpg vs. displ)**
+
+```{r, warning=FALSE}
+nuage_point <- 
+  mpg_aumente %>% 
+  filter(cyl %in% c(2,4,6,8)) %>% 
+  ggplot(aes(displ,avg_mpg, fill = cyl))+
+  geom_point(shape =21, size = 3)+
+  geom_mark_ellipse(
+    data = mpg_aumente |>
+      filter(displ <= 2.5 & between(avg_mpg, 30,40)),
+    aes(
+      x0 = 3,
+      y0 = 35,
+      label = "Consommation importante de carburant",
+      
+    ),
+    fill = "firebrick2",
+    alpha = 0.1
+  ) +
+  labs(
+    x = "Taille de la cylindrés du moteur (en littre)",
+    y = "Consommation moyenne de carburant (en mpg)",
+    fill = "Nombre de cylindres",
+    subtitle = "Distribustion de la consommation de carburant selon la cylindré",
+    caption = "Source : mpg data - ggplot2_package",
+  )+
+  theme_minimal(base_size =10)+
+  theme(
+    legend.position = 'top',
+    legend.title = element_text(face = 'bold'),
+    panel.grid.minor = element_blank()
+  ) +
+  scale_fill_distiller(
+    palette = 'Blues',
+    direction = 1
+  )
+
+nuage_point +
+  guides(
+    fill = guide_coloursteps(
+      title.position = 'top',
+      barwidth = unit(7, 'cm')
+    )
+  )
+```
+
+-   **Comment le type de transmission affecte -t-il la consommation moyenne ? (avg_mpg vs. trans)**
+
+```{r, warning=FALSE}
+mpg_aumente %>%
+  mutate(
+    trans = str_to_title(trans)
+  ) %>% 
+  group_by(trans) %>% 
+  summarise(avg_mpg= mean(avg_mpg)) %>% 
+  ungroup()  %>% 
+  ggplot(aes(x =avg_mpg, y = trans))+
+  geom_point(
+    color = 'dodgerblue4',
+    size = 4
+  )+
+  geom_text(
+    aes(
+      label = trans
+    ),
+    hjust = 1,
+    nudge_x = -0.09,
+    size = 3,
+    family = 'Merriweather'
+  )+
+  theme_minimal(
+    base_size = 10,
+    base_family = 'Merriweather'
+  )+
+  labs(subtitle = "Evolution de la consommation moyenne par type de transmission",
+       x = element_blank(),
+       y = element_blank(),
+       caption = "Source : mpg data - ggplot2_package"
+  )+
+  scale_x_continuous(
+    expand = expansion(mult = c(0.15,0.05))
+  )+
+  theme(
+    panel.grid.major.y = element_blank(),
+    plot.title.position = 'plot',
+    axis.text.y = element_blank()
+  )
+```
+
+-   **Comment le type de traction inflence -t-il la consommation moyenne ? (avg_mpg vs. drv)**
+
+```{r, warning=FALSE}
+colors <-  c("firebrick2",'#009E73', 'dodgerblue4')
+names(colors) <-  unique(mpg_aumente$drv)
+
+
+mpg_aumente %>% 
+  ggplot(aes(avg_mpg, fill = drv, y = drv))+
+  geom_boxplot(width = 0.08) +
+  geom_dots(
+    side = 'bottom',
+    height = 0.55,
+    position = position_nudge(y = -0.075)
+  )+
+  stat_slab(
+    position = position_nudge(y = 0.075),
+    height = 0.75
+  )+
+  scale_fill_manual(values = colors)+
+  labs(
+    subtitle = "Evolution de la consommation moyenne par type de traction",
+    x = element_blank(),
+    y = element_blank(),
+    caption = "Source : mpg data - ggplot2_package"
+  )+
+  theme_minimal(
+    base_size = 10,
+    base_family = 'Merriweather'
+  )+
+  theme(
+    panel.grid.minor = element_blank(),
+    legend.position = 'none'
+  )
+```
