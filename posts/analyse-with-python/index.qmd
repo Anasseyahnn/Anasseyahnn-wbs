@@ -3,7 +3,7 @@ title: "Visualiation des données"
 author: "Anasse Yahanan"
 date: "2025-01-12"
 categories: [news, code, python, analysis]
-image: "mpg.png"
+image: "fdg.png"
 ---
 
 ## Projet de Data Science
@@ -20,7 +20,7 @@ Utilisez les compétences en pandas et data viz pour déterminer si les notes de
 
 Comparer les note des Fandango avec celles de l'article du site 538 [Clique ici](https://github.com/fivethirtyeight/data)
 
---------------------------------------------------------------------------------
+------------------------------------------------------------------------
 
 ### Presentation des données
 
@@ -30,14 +30,11 @@ ce dataset contient tous les films qui ont une note Rotten Tomatoes, une note RT
 
 ![](im1.png)
 
-
 Data 2 : **fandango_scrape.csv**
 
 contient tous les films de l'article 538 tirés de Fandango
 
-![](im2.png)
---------------------------------------------------------------------------------
-
+## ![](im2.png)
 
 ### Importation des bibliothèques
 
@@ -45,20 +42,17 @@ contient tous les films de l'article 538 tirés de Fandango
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt 
-import seaborn as sns 
 ```
 
+### Importation du premier dataset
 
-
-### Importation du premier dataset 
-
-  - Importoation du dataset **fandango_scrape.csv**
+-   Importoation du dataset **fandango_scrape.csv**
 
 ```{python}
 fandango = pd.read_csv("fandango_scrape.csv")
 ```
 
-  - Exploration des proprités du datasets et head 
+-   Exploration des proprités du datasets et head
 
 ```{python}
 fandango.head()
@@ -72,8 +66,7 @@ fandango.info()
 fandango.describe().transpose()
 ```
 
-- **Explorons la popularité d'un film et son classement** 
-
+-   **Explorons la popularité d'un film et son classement**
 
 ```{python}
 fig, ax = plt.subplots(figsize = (9,5))
@@ -95,31 +88,21 @@ ax.set(
 plt.show()
 ```
 
+La popularité des films semblent être en accord avec les votes il nous faudra explorer la correlation etre les variables pour comprendre si les notes (STARS) afichées par fandango évoluent dans le même sens que la note des spectateus (RATING)
 
-La popularité des films semblent être en accord avec les votes 
-il nous faudra explorer la correlation etre les variables 
-pour comprendre si les notes (STARS) afichées par fandango 
-évoluent dans le même sens que la note des spectateus (RATING)
-
-
-
-- **Explorons la corrélation entre les variables** 
+-   **Explorons la corrélation entre les variables**
 
 ```{python}
 fandango[['STARS','RATING', 'VOTES']].corr()
 ```
 
+les variables STARS et RATING ne sont pas parfaitement corrélées. **hypotheses** :Il semble y avoir un ecart entre les scores attribués par les spectateurs aux films et celles attribuées a fandango
 
-les variables STARS et RATING ne sont pas parfaitement corrélées.
-**hypotheses** :Il semble y avoir un ecart entre les scores attribués par les spectateurs aux films et celles attribuées a fandango
-
-
-- **Création d'une nouvele colonnes contenant la date de sortie des films** 
+-   **Création d'une nouvele colonnes contenant la date de sortie des films**
 
 ```{python}
 title = 'Nom du titre du film (Annee)'
 ```
-
 
 ```{python}
 title.split('(')[-1].replace(')', '')
@@ -129,48 +112,33 @@ title.split('(')[-1].replace(')', '')
 fandango['YEAR'] =  fandango['FILM'].apply(lambda title: title.split('(')[-1].replace(')', '') )
 ```
 
-
-
 ```{python}
 fandango
 ```
 
-
-- **Explorons le nombre de film par Année** 
+-   **Explorons le nombre de film par Année**
 
 ```{python}
 fandango['YEAR'].value_counts()
 ```
 
-
-- **Explorons le top 10 des films avec le plus grand nombre de votes**
+-   **Explorons le top 10 des films avec le plus grand nombre de votes**
 
 ```{python}
 fandango.nlargest(10, 'VOTES')
 ```
 
-- **Explorons le nombre de films  avec 0/aucun votes**
+-   **Explorons le nombre de films avec 0/aucun votes**
 
 ```{python}
 fandango[fandango['VOTES'] == 0]
 ```
 
-- **Extraction des films qui ont connu au moins un vote**
+-   **Extraction des films qui ont connu au moins un vote**
 
 ```{python}
 df_fandango = fandango[(fandango['VOTES'] > 0)]
 df_fandango
 ```
 
-
- 
-- **Creons un graphique qui affiche la distribustion des note (STARS) par rapport à l'évolution réelle des votes (RATTING)**
-
-
-
-
-
-
-
-
-
+-   **Creons un graphique qui affiche la distribustion des note (STARS) par rapport à l'évolution réelle des votes (RATTING)**

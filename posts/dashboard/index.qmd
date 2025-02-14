@@ -1,0 +1,324 @@
+---
+title: "Analyse des resultats des Jeux Olynpiques"
+format: 
+  dashboard:
+    orientation: columns
+    theme:
+      - sketchy
+      - olympicdash.scss
+logo: olympics-logo.svg
+logo-alt: "Olympics logo with multicolored circles."
+---
+
+
+
+```{r}
+#| label: chargement-packages
+library(tidyverse)
+library(gt)
+library(scales)
+```
+
+
+
+```{r}
+#| label: chargement_donnees
+olympics <- read_csv("olympics.csv")
+```
+
+
+
+```{r}
+#| label: preparation-donnees
+olympics_prep <- olympics %>% 
+  filter(!is.na(medal)) %>% 
+  separate_wider_delim(cols = team, names = c("team", "suffix"), delim = "-", too_many = "merge", too_few = "align_start") %>%
+  select(-suffix) %>% 
+  mutate(medal = fct_relevel(medal, "Bronze", "Silver", "Gold"))
+
+```
+
+
+
+# 🌞 Jeux d'été
+
+```{r}
+#| label: selection-des-modalites-d-été-dans-la-colonnes-season
+summer_olympics <- olympics_prep %>% 
+  filter(season == "Summer")
+```
+
+
+## Column - Medailles par sport et par annee {width="65%"}
+
+
+### Row - Medailles par sport {height="60%"}
+
+```{r}
+#| label: summer-Medailles-par-sport
+#| title: Medailles par sport
+#| fig-width: 8
+#| fig-height: 3
+summer_olympics %>% 
+  mutate(
+    sport = fct_lump_n(sport, n = 15),
+    sport = fct_infreq(sport),
+    sport = fct_rev(sport),
+    sport = fct_relevel(sport, "Other", after = 0)
+  ) %>% 
+  ggplot(aes(y = sport, fill = medal)) +
+  geom_bar(color = "white") +
+  guides(fill = guide_legend(reverse = TRUE)) +
+  scale_fill_manual(values = c(
+    "Gold" = "#d4af37",
+    "Silver" = "#c0c0c0",
+    "Bronze" = "#cd7f32"
+    )
+  ) +
+  scale_x_continuous(
+    breaks = seq(0, 7000, 1000),
+    labels = label_number(big.mark = ",")
+  ) +
+  labs(
+    x = NULL,
+    y = NULL,
+    fill = "Medal"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "inside",
+    legend.position.inside = c(0.8, 0.2),
+    legend.direction = "horizontal",
+    legend.background = element_rect(fill = "white", color = "gray")
+  )
+```
+
+
+### Row - Medailles par annee {height="40%"}
+
+
+::: {.card title="Medailles par annee"}
+En raison de la Seconde Guerre mondiale, aucun jeu olympique n'a été organisé en 1940 et 1944
+
+```{r}
+#| label: summer-Medailles-par-annee
+#| title: Medailles par annee
+#| fig-width: 11
+#| fig-height: 2
+summer_olympics |>
+  count(year, medal) |>
+  ggplot(aes(x = year, y = n, fill = medal)) +
+  geom_line(aes(color = medal), linewidth = 0.8) +
+  geom_point(size = 2, color = "white", shape = "circle filled") +
+  guides(
+    color = guide_legend(reverse = TRUE),
+    fill = guide_legend(reverse = TRUE)
+  ) +
+  scale_color_manual(values = c(
+    "Gold" = "#d4af37",
+    "Silver" = "#c0c0c0",
+    "Bronze" = "#cd7f32"
+    )
+  ) +
+  scale_fill_manual(values = c(
+    "Gold" = "#d4af37",
+    "Silver" = "#c0c0c0",
+    "Bronze" = "#cd7f32"
+    )
+  ) +  
+  scale_x_continuous(breaks = seq(1896, 2020, 8)) +
+  labs(
+    x = "Year",
+    y = NULL,
+    color = "Medal",
+    fill = "Medal"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "inside",
+    legend.position.inside = c(0.8, 0.2),
+    legend.direction = "horizontal",
+    legend.background = element_rect(fill = "white", color = "gray")
+  )
+```
+
+
+:::
+
+## Column - Medailles par pays {width="35%"}
+
+### Row - Value boxes {height="30%"}
+
+```{r}
+#| label: summer-calcule-du-nombre-de-Medailles
+summer_most_golds <- summer_olympics |>
+  filter(medal == "Gold") |>
+  count(team, sort = TRUE) |>
+  slice_head(n = 1)
+
+summer_most_silvers <- summer_olympics |>
+  filter(medal == "Silver") |>
+  count(team, sort = TRUE) |>
+  slice_head(n = 1)
+
+summer_most_bronzes <- summer_olympics |>
+  filter(medal == "Bronze") |>
+  count(team, sort = TRUE) |>
+  slice_head(n = 1)
+```
+
+
+::: {.valuebox icon="award-fill" color="#d4af37"}
+
+Total de Medailles Or:
+
+`{r} summer_most_golds$n`
+
+`{r} summer_most_golds$team`
+:::
+
+::: {.valuebox icon="award-fill" color="#c0c0c0"}
+Total de Medailles Argent:
+
+`{r} summer_most_silvers$n`
+
+`{r} summer_most_silvers$team`
+:::
+
+::: {.valuebox icon="award-fill" color="#cd7f32"}
+Total de Medailles bronzes:
+
+`{r} summer_most_bronzes$n`
+
+`{r} summer_most_bronzes$team`
+:::
+
+
+### Row - Tabsets of tables {.tabset height="70%"}
+
+```{r}
+#| label: summer-medaille-totale-equipe
+summer_team_total_medals <- summer_olympics |>
+  count(team, medal) |>
+  pivot_wider(names_from = medal, values_from = n, values_fill = 0) |>
+  mutate(total = Bronze + Gold + Silver)
+```
+
+
+::: {.card title="Top 30 des pays avec le plus de medailles"}
+Les équipes sont classées par ordre décroissant du nombre total de médailles
+
+```{r}
+#|label: summer-top-30-medals
+#|
+summer_team_total_medals |>
+  arrange(desc(total), team) |>
+  slice_head(n = 30) |>
+  select(Team = team, Gold, Silver, Bronze) |>
+  gt() |>
+  cols_align(align = "left", columns = Team) |>
+  data_color(
+    method = "numeric",
+    palette = "nord::aurora"
+  )
+```
+:::
+
+::: {.card title="Top 30 des pays avec le moins de medailles"}
+
+Les équipes sont classées par ordre croissant du nombre total de médailles
+
+```{r}
+#| label: summer-bottom-30-medals
+summer_team_total_medals |>
+  arrange(total, team) |>
+  slice_head(n = 30) |>
+  select(Team = team, Gold, Silver, Bronze) |>
+  gt() |>
+  cols_align(align = "left", columns = Team) |>
+  data_color(
+    method = "numeric",
+    palette = "nord::frost"
+  )
+```
+:::
+
+
+# ❄️ Jeux d'hiver
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
