@@ -1,5 +1,7 @@
 ---
 title: "Analyse des resultats des Jeux Olynpiques"
+date: "2025-02-13"
+categories: [code, R, analysis,dashboard]
 format: 
   dashboard:
     orientation: columns

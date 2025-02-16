@@ -2,9 +2,9 @@
   {
     "listing": "/projets.html",
     "items": [
+      "/posts/simputation/index.html",
       "/posts/dashboard/index.html",
       "/posts/post-with-code/index.html",
-      "/posts/analyse-with-python/index.html",
       "/posts/welcome/index.html"
     ]
   }

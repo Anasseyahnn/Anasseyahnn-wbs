@@ -8,10 +8,12 @@ website:
     left: 
       - text: "Accueil"
         file: index.qmd
-      - text: "Projets"
+      - text: "Portfolio"
         file: projets.qmd
-      - text: "CV"
+      - text: "Mon CV"
         file: cv.qmd
+      - text: "A venir"
+        file: news.qmd
     right:
       - icon: github
         href: https://github.com/

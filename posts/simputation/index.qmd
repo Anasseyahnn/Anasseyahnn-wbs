@@ -1,5 +1,120 @@
 ---
-title: "index"
-format: html
+title: "Découvrez le Package Simputation de R"
+date: "2025-02-14"
+categories: [news, code, R, imputation]
+format: 
+    html:
+      toc: true
+      toc-location: left
+      toc-title: "Sommaire"
+      toc-depth: 5
 ---
+
+![](test.png)
+
+# Introduction
+
+Dans le monde de l'analyse de données, l'imputation est une étape cruciale pour gérer les valeurs manquantes. Le package Simputation de R offre une solution puissante et flexible pour imputer les données manquantes de manière simple et efficace. Dans cet article, nous allons explorer les fonctionnalités de ce package, comprendre son utilité, et voir des exemples concrets d'application.
+
+### Qu'est-ce que le Package Simputation ?
+
+***Simputation*** est un package R conçu pour faciliter l'imputation des données manquantes. Il propose une interface unifiée pour plusieurs méthodes d'imputation, permettant aux utilisateurs de choisir la méthode la plus adaptée à leurs besoins. Que vous travailliez avec des données numériques, catégorielles, ou même des données complexes, Simputation offre des outils pour gérer ces situations.
+
+### Pourquoi Utiliser Simputation ?
+
+-   ***Flexibilité*** : Supporte une variété de méthodes d'imputation, y compris la régression, la moyenne, la médiane, et bien d'autres.
+
+-   ***Simplicité*** : Une syntaxe intuitive qui permet de réaliser des imputations en quelques lignes de code.
+
+-   ***Intégration*** : Fonctionne parfaitement avec les autres packages du tidyverse, ce qui facilite son intégration dans vos workflows existants.
+
+### Installation
+
+Pour installer Simputation, utilisez la commande suivante :
+
+``` r
+install.packages("simputation")
+```
+
+### Exemples d'Application
+
+-   Chargement des librairies
+
+```{r, message=FALSE, warning=FALSE}
+library(simputation)
+library(tidyverse)
+library(datasets)
+library(naniar)
+library(gt)
+```
+
+Le package **Simputation** propose plusieurs méthodes d'imputation pour gérer les valeurs manquantes. Chaque méthode est basée sur un modèle statistique ou une approche algorithmique spécifique
+
+**Conseil** : Lorsque vous développez des modèles d'imputation, il est judicieux d'essayer quelques modèles différents pour voir comment les valeurs imputées évoluent en fonction de vos hypothèses. Dans cette partie, nous allons imputer des données à l'aide de la régression linéaire.
+
+#### 1. Comment fonctionne l'imputation à l'aide d'un modèle linéaire
+
+L'imputation par la moyenne est généralement d'une mauvaise méthode d'imputation, car elle augmente artificiellement la moyenne et réduit la variance, ce qui ne permet pas de capturer la variation naturelle des données. Utiliser un modèle linéaire pour imputer les données prendre en compte certaines caractéristiques des données, afin de mieux prédire les valeurs manquantes.
+
+Pour imputer des valeurs à l'aide d'un modèle linéaire, nous utilisons `impute_lm`
+
+soit la donnée `airquality`
+
+#### données Airquality
+
+```{r}
+airquality %>% 
+  slice_head(n = 6) %>%
+  gt()
+```
+
+### Utilisation de simpite_lm()
+
+-   Description :
+
+Pour utiliser `impute_lm()`, nous spécifions la variable sur laquelle nous souhaitons imputer comme y variable dépendante ou, comme vous le feriez avec un modèle linéaire. Sur le côté droit de la formule se trouvent les variables que nous souhaitons utiliser pour former les imputations (X). Cela renvoie un bloc de données avec des valeurs imputées dans `y`
+
+-   Cas pratique
+
+Nous allons imputer les valeurs de la variable **Solar.R** utilisant les variables **Wind, Temp, et Month**, et enchaîner une autre étape d'imputation dans pour imputer la variable **Ozone** avec les mêmes variables.
+
+```{r}
+airquality_lm_impute <- airquality %>% 
+  nabular() %>% 
+  add_label_shadow() %>% 
+  as.data.frame() %>% 
+  impute_lm(Solar.R ~ Wind + Temp + Month) %>% 
+  impute_lm(Ozone ~ Wind + Temp + Month) %>% 
+  as_tibble() 
+
+airquality_lm_impute
+```
+
+
+
+-   Explication :
+
+    -   Transformation le jeu de données en format **nabular** et **add_label_shadow()** pour identifier les valeurs manquantes en ajoutant une colonne **any_missing** pour indiquer les lignes avec des valeurs manquantes.
+
+    -   Convertir en data.frame pour assurer la compatibilité.
+
+    -   Convertir le résultat en tibble pour une manipulation facile.
+    
+
+
+Nous pouvons utiliser ggplot pour afficher les valeurs imputées, en définissant colour = any_missingun ggplot.
+
+
+```{r}
+ggplot(airquality_lm_impute,
+       aes(x = Solar.R,
+           y = Ozone,
+           colour = any_missing)) +
+  geom_point()
+```
+
+
+
+
+
 
