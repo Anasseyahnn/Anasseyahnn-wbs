@@ -1,5 +1,5 @@
 ---
-title: "30-days-of-r"
+title: "30 jours de R"
 format: html
 ---
 

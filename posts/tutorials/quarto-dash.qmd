@@ -1,0 +1,164 @@
+---
+title: "Dashboard avec Quarto"
+date: "2025-02-17"
+categories: [news, code, R, dashboard]
+format: 
+    html:
+      toc: true
+      toc-location: left
+      toc-title: "Sommaire"
+      toc-depth: 5
+---
+
+
+
+
+
+
+# Jour 1 : Creation de l'envirionnement et Structure d'un Dashboard avec quarto R
+
+
+## Creation de l'envirionnement
+
+ - Creer un nouveau projet (selectionner ***New Project***)
+ 
+ 
+ ![](im8.png)
+
+
+
+
+  - Puis ***Nex Directory***
+  
+  
+  ![](im9.png)
+
+
+ - Ensuite vous cliquez sur ***Quarto project***
+ 
+ ![](im10.png)
+ 
+ 
+ 
+ - Ensuite vous nommez le dossier dans la ***zone Directory name*** (1) et vous cliquez sur ***create Project*** (2)
+ 
+  ![](im11.png)
+
+
+
+## Structure d'un Dashboard avec quarto R
+
+
+
+Dans quarto un tableau de bord est composé de plusieurs cartes (card) 
+qui forment l'affichage.
+
+
+![](im1.png)
+
+
+
+## Layout
+
+  - Pages : represente le contenu du tableau de bord (bleu)
+
+  - Tabsets : des pages verticales (vert et blanc)
+  
+  - sidebars : la barre verticale (orange)
+  
+  
+
+![](im2.png)
+
+ 
+## Etape-1 :  configuration du ylm
+
+  - **title** : le titre de votre tableau de bord 
+  - **format** : dashboard 
+
+
+![](im3.png)
+
+
+## Etape-2 :  Ajout des cartes 
+
+
+  - Chaque code entré dans le chuck represente une carte du tableau de bord 
+  
+  
+  ***Exemple***
+  
+  
+![](im4.png)
+
+ 
+  ***Resultat***
+
+
+![](im5.png)
+
+
+
+## Etape-3 :  Ajout de titre aux cartes 
+
+pour ajouter des titres on utilise **#| title: titre souhaité de la carte**
+
+Ainsi en appliquant cette étape à notre tableau de bord initial on obtient 
+
+
+
+![](im6.png)
+
+![](im7.png)
+
+**Merci d'avoir suivi et à dimanche prochain**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

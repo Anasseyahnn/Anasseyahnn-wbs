@@ -68,6 +68,7 @@ library(ggplot2)
 library(ggforce)
 library(glue)
 library(ggdist)
+library(gghighlight)
 ```
 
 ### I. Analyse Exploratoire des données
@@ -136,7 +137,7 @@ mpg_aumente <-
 -   **Dictionnaire des données**
 
 | **Variables** | **Descriptif** | **Nature** | **Modalités** |
-|:-----------------|:----------------:|:----------------:|:----------------:|
+|:---|:--:|:--:|:--:|
 |  | **Variables initiales** |  |  |
 | *`manufacturer`* | Constructeur de véhicule | factor | audi, toyota, etc... |
 | *`model`* | Modèle du véhicule | factor | a4, a4 quatro, etc... |
@@ -341,7 +342,7 @@ mpg_aumente %>%
   
 ```
 
-### III. Analyse des realations entre les variables
+### III. Analyse des relations entre les variables
 
 #### **3.1 Matrice de corrélation**
 
@@ -514,7 +515,7 @@ mpg_aumente %>%
 -   **Comment le type de traction inflence -t-il la consommation moyenne ? (avg_mpg vs. drv)**
 
 ```{r, warning=FALSE}
-colors <-  c("firebrick2",'#009E73', 'dodgerblue4')
+colors <-  c("firebrick2",'dodgerblue4', 'dodgerblue4')
 names(colors) <-  unique(mpg_aumente$drv)
 
 
@@ -533,7 +534,7 @@ mpg_aumente %>%
   scale_fill_manual(values = colors)+
   labs(
     subtitle = "Evolution de la consommation moyenne par type de traction",
-    x = element_blank(),
+    x = "Consommation moyenne de carburant (en mpg)",
     y = element_blank(),
     caption = "Source : mpg data - ggplot2_package"
   )+
@@ -543,6 +544,91 @@ mpg_aumente %>%
   )+
   theme(
     panel.grid.minor = element_blank(),
+    legend.position = 'none'
+  )
+```
+
+/
+
+-   **Comment la classe de véhicule inflence-t-elle la consommation moyenne ? (avg_mpg vs. class)**
+
+```{r, warning=FALSE, message=FALSE}
+
+colors <-  c("firebrick2",'firebrick2', 'dodgerblue4', 'tomato', 'tomato', 'dodgerblue4', 'firebrick2')
+names(colors) <-  unique(mpg_aumente$class)
+
+
+mpg_aumente %>% 
+  ggplot(aes(avg_mpg, fill = class, y = class))+
+  geom_boxplot(width = 0.08) +
+  geom_dots(
+    side = 'bottom',
+    height = 0.55,
+    position = position_nudge(y = -0.075)
+  )+
+  stat_slab(
+    position = position_nudge(y = 0.075),
+    height = 0.75
+  )+
+  scale_fill_manual(values = colors)+
+  labs(
+    subtitle = "Evolution de la Consommation Moyenne par Classe de véhicule ",
+    x = "Consommation moyenne de carburant (en mpg)",
+    y = element_blank(),
+    caption = "Source : mpg data - ggplot2_package"
+  )+
+  theme_minimal(
+    base_size = 11,
+    base_family = 'Merriweather'
+  )+
+  theme(
+    panel.grid.minor = element_blank(),
+    legend.position = 'none'
+  )
+```
+
+-   **Comment les émissions de C02 sont - elles liées à la consomation moyenne**
+
+```{r, message=FALSE, warning=FALSE}
+mpg_aumente %>% 
+  ggplot(aes(x = avg_mpg, y = co2_emission, colour = fuel_efficiency))+
+  geom_line(linewidth = 1.5)+
+  theme_minimal(
+    base_size = 10,
+    base_family = 'Merriweather'
+    
+  )+
+  labs(
+    x = 'Consommation moyenne de carburant (en mpg)',
+    y = element_blank(),
+    title = "Emission de C02 par consommation moyenne",
+    caption = "Source : mpg data - ggplot2_package",
+  )+
+  gghighlight(
+    fuel_efficiency == 'Faible',
+    avg_mpg  < 20,
+    use_direct_label = F,
+    use_group_by = F,
+    unhighlighted_params = list(color = 'grey80',linewidth = 1 )
+  )+
+  annotate(
+    'text',
+    x = 15,
+    y = c(525, 20),
+    size = 3,
+    label = c('Emission CO2 elevée', 'Faible conso carburant'),
+    color = c('firebrick2', 'dodgerblue4')
+  )+
+  annotate(
+    'segment',
+    x = 20,
+    xend = 20,
+    y = 0,
+    linetype = 2,
+    linewidth = 1,
+    color = 'grey80',
+  )+
+  theme(
     legend.position = 'none'
   )
 ```

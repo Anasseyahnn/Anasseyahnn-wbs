@@ -1,5 +1,0 @@
----
-title: "quarto-beginners"
-format: html
----
-

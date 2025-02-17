@@ -57,7 +57,7 @@ du tidyverse en R.
 Apprenez à créer des applications web interactives avec R quarto
 à travers ce tutorial pas à pas.
 
-[Voir le tutorial →](/tutorials/quarto-beginners.qmd){.news-link}
+[Voir le tutorial →](/posts/tutorials/quarto-dash.qmd){.news-link}
 :::
 
 ::: {.g-col-12 .g-col-md-4 .news-card}
@@ -79,7 +79,7 @@ avec R et quarto
 Participez au challenge : un script R par jour pendant 30 jours
 pour améliorer vos compétences.
 
-[Rejoindre le challenge →](/challenges/30-days-of-r.qmd){.news-link}
+[Rejoindre le challenge →](/posts/challenges/30-days-of-r.qmd){.news-link}
 :::
 
 :::
