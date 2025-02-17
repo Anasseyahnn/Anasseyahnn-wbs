@@ -2,6 +2,10 @@
   {
     "listing": "/projets.html",
     "items": [
+      "/posts/challenges/30-days-of-r.html",
+      "/posts/climat_analysis/index.html",
+      "/posts/resources/tidyverse-guide.html",
+      "/posts/tutorials/quarto-beginners.html",
       "/posts/simputation/index.html",
       "/posts/dashboard/index.html",
       "/posts/post-with-code/index.html",

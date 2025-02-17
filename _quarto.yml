@@ -12,8 +12,10 @@ website:
         file: projets.qmd
       - text: "Mon CV"
         file: cv.qmd
-      - text: "A venir"
+      - text: "Actualités"
         file: news.qmd
+      - text: "Contact"
+        file: contact.qmd
     right:
       - icon: github
         href: https://github.com/

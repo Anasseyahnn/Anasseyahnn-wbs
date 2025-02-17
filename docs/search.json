@@ -32,7 +32,7 @@
     "href": "projets.html",
     "title": "Mon Portfolio",
     "section": "",
-    "text": "Découvrez le Package Simputation de R\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nR\n\n\nimputation\n\n\n\n\n\n\n\n\n\nFeb 14, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nAnalyse des resultats des Jeux Olynpiques\n\n\n\n\n\n\ncode\n\n\nR\n\n\nanalysis\n\n\ndashboard\n\n\n\n\n\n\n\n\n\nFeb 13, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nAnalyse des donnees MPG\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nR\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nFeb 11, 2025\n\n\nAnasse Yahanan\n\n\n\n\n\n\n\n\n\n\n\n\nBienvenue sur mon blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nFeb 8, 2024\n\n\nAnassé Yahanan\n\n\n\n\n\n\nNo matching items"
+    "text": "30-days-of-r\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAnalyse des données environnementale\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ntidyverse-guide\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nquarto-beginners\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDécouvrez le Package Simputation de R\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nR\n\n\nimputation\n\n\n\n\n\n\n\n\n\nFeb 14, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nAnalyse des resultats des Jeux Olynpiques\n\n\n\n\n\n\ncode\n\n\nR\n\n\nanalysis\n\n\ndashboard\n\n\n\n\n\n\n\n\n\nFeb 13, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nAnalyse des donnees MPG\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nR\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nFeb 11, 2025\n\n\nAnasse Yahanan\n\n\n\n\n\n\n\n\n\n\n\n\nBienvenue sur mon blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nFeb 8, 2024\n\n\nAnassé Yahanan\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/EDA/index.html",
@@ -93,8 +93,50 @@
   {
     "objectID": "news.html",
     "href": "news.html",
-    "title": "Anassé Yahanan",
+    "title": "Actualités",
     "section": "",
-    "text": "ici pour les news"
+    "text": "👋 Bienvenue dans ma section Actualités !\nDécouvrez ici mes derniers projets, astuces et explorations dans le monde de la data science. Cette section est régulièrement mise à jour avec de nouveaux contenus passionnants.\n\n\n\n🚀 Projet en cours\nAnalyse de données environnementales\nJe travaille actuellement sur un projet d’analyse de données climatiques utilisant R et des techniques de visualisation avancées.\nEn savoir plus →\n\n\n💡 Astuce de la semaine\nDécouvrez le Package Simputation de R\nDécouvrez mes astuces pour l’imputations des données manquantes à travers des méthodes adaptées aux besoins\nLire l’astuce →\n\n\n📚 Ressource utile\nGuide tidyverse\nUn guide pratique que j’ai créé pour maîtriser les packages du tidyverse en R.\nConsulter le guide →\n\n\n🔧 Nouveau Tutorial\nDébutez avec Shiny\nApprenez à créer des applications web interactives avec R Shiny à travers ce tutorial pas à pas.\nVoir le tutorial →\n\n\n📊 Visualisation du mois\nDashboard Olympics games\nUn tableau de bord pour analyser des resultats des Jeux Olynpiques avec R et quarto\nExplorer le dashboard →\n\n\n🎯 Challenge R\n30 jours de R\nParticipez au challenge : un script R par jour pendant 30 jours pour améliorer vos compétences.\nRejoindre le challenge →"
+  },
+  {
+    "objectID": "posts/climat_analysis/analyse-environnement.html",
+    "href": "posts/climat_analysis/analyse-environnement.html",
+    "title": "Analyse des données environnementale",
+    "section": "",
+    "text": "Bientôt"
+  },
+  {
+    "objectID": "contact.html",
+    "href": "contact.html",
+    "title": "Contact",
+    "section": "",
+    "text": "N’hésitez pas à me contacter pour toute question, suggestion ou collaboration. Je vous répondrai dans les plus brefs délais.\n\n    \n        Nom\n        \n    \n    \n    \n        Email\n        \n    \n    \n    \n        Sujet\n        \n    \n    \n    \n        Message\n        \n    \n    \n    Envoyer le message\n\n\n\n\nLes messages envoyés via ce formulaire me seront transmis directement par email. Je m’efforce de répondre sous 48 heures."
+  },
+  {
+    "objectID": "contact.html#contactez-moi",
+    "href": "contact.html#contactez-moi",
+    "title": "Contact",
+    "section": "",
+    "text": "N’hésitez pas à me contacter pour toute question, suggestion ou collaboration. Je vous répondrai dans les plus brefs délais.\n\n    \n        Nom\n        \n    \n    \n    \n        Email\n        \n    \n    \n    \n        Sujet\n        \n    \n    \n    \n        Message\n        \n    \n    \n    Envoyer le message\n\n\n\n\nLes messages envoyés via ce formulaire me seront transmis directement par email. Je m’efforce de répondre sous 48 heures."
+  },
+  {
+    "objectID": "posts/climat_analysis/index.html",
+    "href": "posts/climat_analysis/index.html",
+    "title": "Analyse des données environnementale",
+    "section": "",
+    "text": "Bientôt"
+  },
+  {
+    "objectID": "posts/resources/tidyverse-guide.html",
+    "href": "posts/resources/tidyverse-guide.html",
+    "title": "tidyverse-guide",
+    "section": "",
+    "text": "Bientôt disponible"
+  },
+  {
+    "objectID": "posts/challenges/30-days-of-r.html",
+    "href": "posts/challenges/30-days-of-r.html",
+    "title": "30-days-of-r",
+    "section": "",
+    "text": "Bientôt disponible"
   }
 ]

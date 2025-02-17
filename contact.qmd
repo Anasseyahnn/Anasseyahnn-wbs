@@ -1,0 +1,97 @@
+---
+title: ""
+---
+
+## 📬 Contactez-moi
+
+N'hésitez pas à me contacter pour toute question, suggestion ou collaboration. 
+Je vous répondrai dans les plus brefs délais.
+
+```{=html}
+<form action="https://formspree.io/f/xgvopegb" method="POST" id="contact-form">
+    <div class="mb-3">
+        <label for="name" class="form-label">Nom</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="subject" class="form-label">Sujet</label>
+        <input type="text" class="form-control" id="subject" name="subject" required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="message" class="form-label">Message</label>
+        <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Envoyer le message</button>
+</form>
+
+<style>
+#contact-form {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ffffff;
+    background-color: #3b82f6;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #2563eb;
+}
+
+@media (max-width: 640px) {
+    #contact-form {
+        margin: 1rem;
+        padding: 1rem;
+    }
+}
+</style>
+```
+
+:::info
+Les messages envoyés via ce formulaire me seront transmis directement par email. Je m'efforce de répondre sous 48 heures.
+:::

@@ -1,1 +1,176 @@
-ici pour les news 
+---
+title: "Actualités"
+format:
+  html:
+    css: styles.css
+    page-layout: full
+---
+
+::: {.column-page}
+
+::: {.welcome-message}
+# 👋 Bienvenue dans ma section Actualités !
+
+Découvrez ici mes derniers projets, astuces et explorations dans le monde de la data science. 
+Cette section est régulièrement mise à jour avec de nouveaux contenus passionnants.
+:::
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-4 .news-card}
+### 🚀 Projet en cours
+
+**Analyse de données environnementales**
+
+Je travaille actuellement sur un projet d'analyse de données climatiques 
+utilisant R et des techniques de visualisation avancées.
+
+[En savoir plus →](/posts/climat_analysis/index.qmd){.news-link}
+:::
+
+::: {.g-col-12 .g-col-md-4 .news-card}
+### 💡 Astuce de la semaine
+
+**Découvrez le Package Simputation de R**
+
+Découvrez mes astuces pour l'imputations des données manquantes à travers des méthodes adaptées aux besoins
+
+[Lire l'astuce →](/posts/simputation/index.qmd){.news-link}
+:::
+
+::: {.g-col-12 .g-col-md-4 .news-card}
+### 📚 Ressource utile
+
+**Guide tidyverse**
+
+Un guide pratique que j'ai créé pour maîtriser les packages 
+du tidyverse en R.
+
+[Consulter le guide →](/posts/resources/tidyverse-guide.qmd){.news-link}
+:::
+
+::: {.g-col-12 .g-col-md-4 .news-card}
+### 🔧 Nouveau Tutorial
+
+**Débutez avec quarto dashboard**
+
+Apprenez à créer des applications web interactives avec R quarto
+à travers ce tutorial pas à pas.
+
+[Voir le tutorial →](/tutorials/quarto-beginners.qmd){.news-link}
+:::
+
+::: {.g-col-12 .g-col-md-4 .news-card}
+### 📊 Visualisation du mois
+
+**Dashboard Olympics games**
+
+Un tableau de bord pour analyser des resultats des Jeux Olynpiques
+avec R et quarto
+
+[Explorer le dashboard →](/posts/dashboard/index.qmd){.news-link}
+:::
+
+::: {.g-col-12 .g-col-md-4 .news-card}
+### 🎯 Challenge R
+
+**30 jours de R**
+
+Participez au challenge : un script R par jour pendant 30 jours
+pour améliorer vos compétences.
+
+[Rejoindre le challenge →](/challenges/30-days-of-r.qmd){.news-link}
+:::
+
+:::
+
+:::
+
+```{=html}
+<style>
+/* Styles précédents inchangés */
+.welcome-message {
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-message h1 {
+    color: white !important;
+    margin-top: 0;
+    font-size: 2.2rem;
+}
+
+.news-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.8rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.news-card:hover {
+    transform: translateY(-3px);
+}
+
+.news-card h3 {
+    color: #4f46e5;
+    margin-top: 0;
+}
+
+.news-link {
+    color: #6366f1;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 1rem;
+    position: relative;
+    padding-right: 1.5rem;
+}
+
+.news-link:hover {
+    text-decoration: underline;
+}
+
+.news-link::after {
+    content: "→";
+    position: absolute;
+    right: 0;
+    transition: transform 0.2s;
+}
+
+.news-link:hover::after {
+    transform: translateX(5px);
+}
+
+/* Ajout d'un badge pour les nouveaux éléments */
+.news-card.new::before {
+    content: "Nouveau !";
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #22c55e;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .welcome-message {
+        padding: 1.5rem;
+    }
+    
+    .welcome-message h1 {
+        font-size: 1.8rem;
+    }
+}
+</style>
+```
