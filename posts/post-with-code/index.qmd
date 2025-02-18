@@ -3,8 +3,9 @@ title: "Analyse des donnees MPG"
 author: "Anasse Yahanan"
 date: "2025-02-11"
 categories: [news, code, R, analysis]
-image: "mpg.png"
 ---
+
+![](mpg.png){fig-align="center"}
 
 ## Presentation du projet
 
@@ -14,7 +15,7 @@ Les données utilisées proviennent du jeu de données mpg inclut dans le packag
 
 ### Objectif
 
--   Explorer et analyser les relations entre les différentes variables du jeu de données `mpg` afin de fournir des recommandations aux acheteurs concernant la consommation de carburant des véhicules.
+-   Explorer et analyser les relations entre les différentes variables du jeu de données miles par galon (mpg) afin de fournir des recommandations aux acheteurs concernant la consommation de carburant des véhicules.
 
     spécifiquement il s'agirat :
 
@@ -137,7 +138,7 @@ mpg_aumente <-
 -   **Dictionnaire des données**
 
 | **Variables** | **Descriptif** | **Nature** | **Modalités** |
-|:---|:--:|:--:|:--:|
+|:-----------------|:----------------:|:----------------:|:----------------:|
 |  | **Variables initiales** |  |  |
 | *`manufacturer`* | Constructeur de véhicule | factor | audi, toyota, etc... |
 | *`model`* | Modèle du véhicule | factor | a4, a4 quatro, etc... |

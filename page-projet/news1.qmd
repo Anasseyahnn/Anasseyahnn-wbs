@@ -1,0 +1,188 @@
+---
+title: ""
+format:
+  html:
+    css: styles.css
+    page-layout: full
+---
+
+::: {.column-page}
+
+::: {.welcome-message}
+# 👋 Bienvenue dans ma section Portfolio !
+
+Découvrez ici mes derniers projets, astuces et explorations dans le monde de la data science. 
+Cette section est régulièrement mise à jour avec de nouveaux contenus passionnants.
+:::
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-4 .news-card}
+### 🚀 Analyse de données MPG 
+
+*Categorie: [news, code, R, analysis]*
+
+Les données utilisées proviennent du jeu de données mpg inclut dans le package ggplot2... 
+
+[En savoir plus →](/posts/post-with-code/index.qmd){.news-link}
+:::
+
+::: {.g-col-12 .g-col-md-4 .news-card}
+### 💡 Analyse des resultats des Jeux Olympiques
+
+*categories: [Code, R, Analysis, Dashboard]*
+
+Ce dashboard interactif offre une exploration complète des données historiques des Jeux Olympiques...
+
+[En savoir plus →](/posts/dashboard/index.qmd){.news-link}
+:::
+
+::: {.g-col-12 .g-col-md-4 .news-card}
+### 📚 Découvrez le Package Simputation de R
+
+*categories: [News, Code, R, Imputation]*
+
+Dans le monde de l’analyse de données, l’imputation est une étape cruciale pour gérer les valeurs manquantes...
+
+[En savoir plus →](/posts/simputation/index.qmd){.news-link}
+:::
+
+::: {.g-col-12 .g-col-md-4 .news-card}
+### 🔧 Débutez avec quarto dashboard
+
+*categories: [News, Code, R, Dashboard]*
+
+Apprenez à créer des tableaux de bord avec R quarto à travers ce tutorial pas à pas...
+
+[Voir le tutorial →](/posts/tutorials/quarto-dash.qmd){.news-link}
+:::
+
+::: {.g-col-12 .g-col-md-4 .news-card}
+### 🔧 Decrouvrez les packages tidyverse
+
+*categories: [Code, R, Preprocessing]*
+
+Une collection de packages R conçus pour la science des données, qui partagent une philosophie commune et une syntaxe cohérente...
+
+[En savoir plus →](/posts/resources/tidyverse-guide.qmd){.news-link}
+:::
+
+::: {.g-col-12 .g-col-md-4 .news-card}
+### 🎯 Tous savoir sur GGPLOT
+
+*categories: [Code, R, Visualisation, ggplot]*
+
+Créer des visualisations impactantes avec ggplot2 est à la fois un art et une science. Ce package, l'un des plus populaires du tidyverse...
+
+[En savoir plus →](/posts/challenges/ggplot.qmd){.news-link}
+:::
+
+:::
+
+:::
+
+
+::: {.pagination}
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+    </li>
+    <li class="page-item active"><a class="page-link" href="/page-projet/news1.qmd">1</a></li>
+    <li class="page-item"><a class="page-link" href="/page-projet/page2.qmd">2</a></li>
+    <li class="page-item"><a class="page-link" href="/page-projet/page3.qmd">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="/page-projet/page2.qmd">Suivant</a>
+    </li>
+  </ul>
+</nav>
+
+
+
+```{=html}
+<style>
+/* Styles précédents inchangés */
+.welcome-message {
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-message h1 {
+    color: white !important;
+    margin-top: 0;
+    font-size: 2.2rem;
+}
+
+.news-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.8rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.news-card:hover {
+    transform: translateY(-3px);
+}
+
+.news-card h3 {
+    color: #4f46e5;
+    margin-top: 0;
+}
+
+.news-link {
+    color: #6366f1;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 1rem;
+    position: relative;
+    padding-right: 1.5rem;
+}
+
+.news-link:hover {
+    text-decoration: underline;
+}
+
+.news-link::after {
+    content: "→";
+    position: absolute;
+    right: 0;
+    transition: transform 0.2s;
+}
+
+.news-link:hover::after {
+    transform: translateX(5px);
+}
+
+/* Ajout d'un badge pour les nouveaux éléments */
+.news-card.new::before {
+    content: "Nouveau !";
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #22c55e;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .welcome-message {
+        padding: 1.5rem;
+    }
+    
+    .welcome-message h1 {
+        font-size: 1.8rem;
+    }
+}
+</style>
+```

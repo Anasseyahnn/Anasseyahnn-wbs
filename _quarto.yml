@@ -8,12 +8,10 @@ website:
     left: 
       - text: "Accueil"
         file: index.qmd
-      - text: "Portfolio"
-        file: projets.qmd
+      - text: "Mon portfolio"
+        file: page-projet/news1.qmd
       - text: "Mon CV"
         file: cv.qmd
-      - text: "Actualités"
-        file: news.qmd
       - text: "Contact"
         file: contact.qmd
     right:

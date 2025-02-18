@@ -3,4 +3,7 @@ title: "tidyverse-guide"
 format: html
 ---
 
+
+Dans cet article, nous plongerons en détail dans chaque package du tidyverse. Vous découvrirez des tutoriels pratiques, des astuces et des exemples concrets pour maîtriser ces outils essentiels. Que vous soyez débutant ou utilisateur avancé, il y aura quelque chose pour vous !
+
 # Bientôt disponible 

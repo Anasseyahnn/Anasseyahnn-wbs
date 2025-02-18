@@ -1,5 +1,5 @@
 ---
-title: "Actualités"
+title: ""
 format:
   html:
     css: styles.css
@@ -9,82 +9,49 @@ format:
 ::: {.column-page}
 
 ::: {.welcome-message}
-# 👋 Bienvenue dans ma section Actualités !
+# 👋 Bienvenue dans ma section Portfolio !
 
 Découvrez ici mes derniers projets, astuces et explorations dans le monde de la data science. 
 Cette section est régulièrement mise à jour avec de nouveaux contenus passionnants.
 :::
 
-::: {.grid}
 
-::: {.g-col-12 .g-col-md-4 .news-card}
-### 🚀 Projet en cours
 
-**Analyse de données environnementales**
 
-Je travaille actuellement sur un projet d'analyse de données climatiques 
-utilisant R et des techniques de visualisation avancées.
 
-[En savoir plus →](/posts/climat_analysis/index.qmd){.news-link}
-:::
 
-::: {.g-col-12 .g-col-md-4 .news-card}
-### 💡 Astuce de la semaine
 
-**Découvrez le Package Simputation de R**
 
-Découvrez mes astuces pour l'imputations des données manquantes à travers des méthodes adaptées aux besoins
 
-[Lire l'astuce →](/posts/simputation/index.qmd){.news-link}
-:::
 
-::: {.g-col-12 .g-col-md-4 .news-card}
-### 📚 Ressource utile
 
-**Guide tidyverse**
 
-Un guide pratique que j'ai créé pour maîtriser les packages 
-du tidyverse en R.
 
-[Consulter le guide →](/posts/resources/tidyverse-guide.qmd){.news-link}
-:::
 
-::: {.g-col-12 .g-col-md-4 .news-card}
-### 🔧 Nouveau Tutorial
 
-**Débutez avec quarto dashboard**
 
-Apprenez à créer des applications web interactives avec R quarto
-à travers ce tutorial pas à pas.
 
-[Voir le tutorial →](/posts/tutorials/quarto-dash.qmd){.news-link}
-:::
 
-::: {.g-col-12 .g-col-md-4 .news-card}
-### 📊 Visualisation du mois
 
-**Dashboard Olympics games**
 
-Un tableau de bord pour analyser des resultats des Jeux Olynpiques
-avec R et quarto
 
-[Explorer le dashboard →](/posts/dashboard/index.qmd){.news-link}
-:::
+::: {.pagination}
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link" href="/page-projet/page2.qmd" tabindex="-1">Précédent</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="/page-projet/news1.qmd">1</a></li>
+    <li class="page-item"><a class="page-link" href="/page-projet/page2.qmd">2</a></li>
+    <li class="page-item active"><a class="page-link" href="/page-projet/page3.qmd">3</a></li>
+    <li class="page-item">
+    </li>
+  </ul>
+</nav>
 
-::: {.g-col-12 .g-col-md-4 .news-card}
-### 🎯 Challenge R
 
-**30 jours de R**
 
-Participez au challenge : un script R par jour pendant 30 jours
-pour améliorer vos compétences.
 
-[Rejoindre le challenge →](/posts/challenges/30-days-of-r.qmd){.news-link}
-:::
-
-:::
-
-:::
 
 ```{=html}
 <style>

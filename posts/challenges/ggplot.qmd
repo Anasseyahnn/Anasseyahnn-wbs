@@ -1,0 +1,8 @@
+---
+title: "Tous savoir sur Ggplot2"
+format: html
+---
+
+Créer des visualisations impactantes avec ggplot2 est à la fois un art et une science. Ce package, l'un des plus populaires du tidyverse, permet de produire des graphiques élégants, personnalisés et informatifs. Dans cet article, nous allons explorer comment tirer le meilleur parti de ggplot2 pour créer des visualisations qui captivent et communiquent efficacement vos données.
+
+# Bientôt disponible

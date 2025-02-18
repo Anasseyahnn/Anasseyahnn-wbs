@@ -1,6 +1,0 @@
----
-title: "30 jours de R"
-format: html
----
-
-# Bientôt disponible

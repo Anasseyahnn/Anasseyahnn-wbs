@@ -1,14 +1,87 @@
 ---
-title: "Mon Portfolio"
-listing:
-  contents: posts
-  sort: "date desc"
-  type: default
-  categories: true
-  sort-ui: false
-  filter-ui: false
-page-layout: full
-title-block-banner: true
+title: "Actualités"
+format:
+  html:
+    css: custom-styles/style2.css
+    page-layout: full
 ---
 
+::: {.column-page}
+::: {.welcome-message}
+# 👋 Bienvenue dans ma section Portfolio !
+Découvrez ici mes derniers projets, astuces et explorations dans le monde de la data science. 
+Cette section est régulièrement mise à jour avec de nouveaux contenus passionnants.
+:::
 
+::: {.grid}
+::: {.g-col-12 .g-col-md-4 .news-card}
+### 🚀 Analyse de données MPG 
+**Categorie: [news, code, R, analysis]**
+Les données utilisées proviennent du jeu de données mpg inclus dans le package ggplot2... 
+[En savoir plus →](/posts/post-with-code/index.qmd){.news-link}
+:::
+
+::: {.g-col-12 .g-col-md-4 .news-card}
+### 💡 Analyse des résultats des Jeux Olympiques
+**Catégories: [Code, R, Analysis, Dashboard]**
+Ce dashboard interactif offre une exploration complète des données historiques des Jeux Olympiques...
+[En savoir plus →](/posts/dashboard/index.qmd){.news-link}
+:::
+
+::: {.g-col-12 .g-col-md-4 .news-card}
+### 📚 Ressource utile
+**Guide tidyverse**
+Un guide pratique que j'ai créé pour maîtriser les packages du tidyverse en R.
+[Consulter le guide →](/posts/resources/tidyverse-guide.qmd){.news-link}
+:::
+
+::: {.g-col-12 .g-col-md-4 .news-card}
+### 🔧 Nouveau Tutorial
+**Débutez avec Quarto Dashboard**
+Apprenez à créer des applications web interactives avec R Quarto à travers ce tutoriel pas à pas.
+[Voir le tutoriel →](/posts/tutorials/quarto-dash.qmd){.news-link}
+:::
+
+::: {.g-col-12 .g-col-md-4 .news-card}
+### 📊 Visualisation du mois
+**Dashboard Jeux Olympiques**
+Un tableau de bord pour analyser les résultats des Jeux Olympiques avec R et Quarto.
+[Explorer le dashboard →](/posts/dashboard/index.qmd){.news-link}
+:::
+
+::: {.g-col-12 .g-col-md-4 .news-card}
+### 🎯 Challenge R
+**30 jours de R**
+Participez au challenge : un script R par jour pendant 30 jours pour améliorer vos compétences.
+[Rejoindre le challenge →](/posts/challenges/30-days-of-r.qmd){.news-link}
+:::
+:::
+:::
+
+::: {.pagination}
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Précédent</a>
+    </li>
+    <li class="page-item active"><a class="page-link" href="/page1">1</a></li>
+    <li class="page-item"><a class="page-link" href="/page2">2</a></li>
+    <li class="page-item"><a class="page-link" href="/page3">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="/page2">Suivant</a>
+    </li>
+  </ul>
+</nav>
+:::
+
+<script>
+document.querySelectorAll('.page-link').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const page = this.getAttribute('href');
+    console.log(`Chargement de la page: ${page}`);
+    // Ici, vous pouvez ajouter une logique pour charger dynamiquement le contenu de la page
+    // Par exemple, via AJAX ou en redirigeant l'utilisateur vers une nouvelle URL
+  });
+});
+</script>

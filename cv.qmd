@@ -1,0 +1,323 @@
+---
+title: ""
+format:
+  html:
+    toc: false
+    css: custom-styles/style1.css
+---
+
+```{=html}
+<div class="cv-container">
+    <header>
+        <div class="profile-container">
+            <img src="profile.jpg" alt="Photo de profil" class="profile-picture">
+            <div class="header-content">
+                <h1>Votre Nom</h1>
+                <h2>Votre Poste / Titre</h2>
+                <div class="contact-info">
+                    <div>
+                        <span>📧</span>
+                        <span>votre.email@exemple.com</span>
+                    </div>
+                    <div>
+                        <span>📱</span>
+                        <span>+33 6 12 34 56 78</span>
+                    </div>
+                    <div>
+                        <span>🌐</span>
+                        <span>linkedin.com/in/votrenom</span>
+                    </div>
+                    <div>
+                        <span>📍</span>
+                        <span>Ville, Pays</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p>Professionnel expérimenté avec X années d'expérience dans [votre domaine]. Spécialisé en [vos spécialités]. Passionné par [vos passions professionnelles].</p>
+    </header>
+    
+    <nav>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Tout afficher</button>
+            <button class="filter-btn" data-filter="experience">Expérience</button>
+            <button class="filter-btn" data-filter="education">Formation</button>
+            <button class="filter-btn" data-filter="skills">Compétences</button>
+            <button class="filter-btn" data-filter="projects">Projets</button>
+            <button class="filter-btn" data-filter="interests">Centres d'intérêt</button>
+        </div>
+    </nav>
+    
+    <main>
+        <section id="experience" class="section" data-category="experience">
+            <div class="section-header">
+                <h2>Expérience Professionnelle</h2>
+                <button class="toggle-button" aria-label="Toggle section">🔽</button>
+            </div>
+            <div class="section-content">
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-title">Poste actuel</div>
+                        <div class="entry-subtitle">Nom de l'entreprise</div>
+                        <div class="entry-date">Jan 2020 - Présent</div>
+                    </div>
+                    <div class="entry-content">
+                        <p>Description de vos responsabilités et réalisations principales dans ce poste.</p>
+                        <ul>
+                            <li>Réalisation importante 1</li>
+                            <li>Réalisation importante 2</li>
+                            <li>Réalisation importante 3</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-title">Poste précédent</div>
+                        <div class="entry-subtitle">Nom de l'entreprise précédente</div>
+                        <div class="entry-date">Jan 2017 - Déc 2019</div>
+                    </div>
+                    <div class="entry-content">
+                        <p>Description de vos responsabilités et réalisations principales dans ce poste.</p>
+                        <ul>
+                            <li>Réalisation importante 1</li>
+                            <li>Réalisation importante 2</li>
+                            <li>Réalisation importante 3</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="education" class="section" data-category="education">
+            <div class="section-header">
+                <h2>Formation</h2>
+                <button class="toggle-button" aria-label="Toggle section">🔽</button>
+            </div>
+            <div class="section-content">
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-title">Diplôme obtenu</div>
+                        <div class="entry-subtitle">Nom de l'établissement</div>
+                        <div class="entry-date">2013 - 2016</div>
+                    </div>
+                    <div class="entry-content">
+                        <p>Description de votre formation, spécialisations, et projets notables.</p>
+                    </div>
+                </div>
+                
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-title">Diplôme précédent</div>
+                        <div class="entry-subtitle">Nom de l'établissement</div>
+                        <div class="entry-date">2010 - 2013</div>
+                    </div>
+                    <div class="entry-content">
+                        <p>Description de votre formation, spécialisations, et projets notables.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="skills" class="section" data-category="skills">
+            <div class="section-header">
+                <h2>Compétences</h2>
+                <button class="toggle-button" aria-label="Toggle section">🔽</button>
+            </div>
+            <div class="section-content">
+                <div class="skills-container">
+                    <div class="skill-category">
+                        <h3>Compétences Techniques</h3>
+                        <div class="skill-item">
+                            <span class="skill-name">Compétence 1</span>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Compétence 2</span>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 75%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Compétence 3</span>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>Langues</h3>
+                        <div class="skill-item">
+                            <span class="skill-name">Français</span>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Anglais</span>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Espagnol</span>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 60%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>Soft Skills</h3>
+                        <div class="skill-item">
+                            <span class="skill-name">Communication</span>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 95%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Leadership</span>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 80%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Travail d'équipe</span>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="projects" class="section" data-category="projects">
+            <div class="section-header">
+                <h2>Projets</h2>
+                <button class="toggle-button" aria-label="Toggle section">🔽</button>
+            </div>
+            <div class="section-content">
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-title">Nom du projet 1</div>
+                        <div class="entry-date">2019 - 2020</div>
+                    </div>
+                    <div class="entry-content">
+                        <p>Description du projet, vos responsabilités, et les résultats obtenus.</p>
+                        <ul>
+                            <li>Technologie utilisée 1</li>
+                            <li>Technologie utilisée 2</li>
+                            <li>Réalisation notable</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="entry">
+                    <div class="entry-header">
+                        <div class="entry-title">Nom du projet 2</div>
+                        <div class="entry-date">2018</div>
+                    </div>
+                    <div class="entry-content">
+                        <p>Description du projet, vos responsabilités, et les résultats obtenus.</p>
+                        <ul>
+                            <li>Technologie utilisée 1</li>
+                            <li>Technologie utilisée 2</li>
+                            <li>Réalisation notable</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="interests" class="section" data-category="interests">
+            <div class="section-header">
+                <h2>Centres d'intérêt</h2>
+                <button class="toggle-button" aria-label="Toggle section">🔽</button>
+            </div>
+            <div class="section-content">
+                <div class="interests">
+                    <div class="interest-item">Voyage</div>
+                    <div class="interest-item">Photographie</div>
+                    <div class="interest-item">Cuisine</div>
+                    <div class="interest-item">Lecture</div>
+                    <div class="interest-item">Randonnée</div>
+                    <div class="interest-item">Technologies</div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>© 2024 Votre Nom - CV Interactif</p>
+        <a href="#" class="download-button" id="print-button">Imprimer / Télécharger PDF</a>
+    </footer>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const sections = document.querySelectorAll('.section');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                // Show/hide sections based on filter
+                sections.forEach(section => {
+                    if (filter === 'all' || section.getAttribute('data-category') === filter) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+            });
+        });
+        
+        // Toggle section content
+        const toggleButtons = document.querySelectorAll('.toggle-button');
+        
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const sectionContent = button.parentElement.nextElementSibling;
+                
+                if (sectionContent.style.display === 'none') {
+                    sectionContent.style.display = 'block';
+                    button.textContent = '🔽';
+                } else {
+                    sectionContent.style.display = 'none';
+                    button.textContent = '▶️';
+                }
+            });
+        });
+        
+        // Print functionality
+        const printButton = document.getElementById('print-button');
+        
+        printButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Show all sections before printing
+            sections.forEach(section => {
+                section.classList.remove('hidden');
+                const sectionContent = section.querySelector('.section-content');
+                if (sectionContent) {
+                    sectionContent.style.display = 'block';
+                }
+            });
+            
+            window.print();
+        });
+    });
+</script>
+```
