@@ -1,5 +1,5 @@
 ---
-title: "Apprendre tidiverse : Maîtriser les dates en R avec lubridate"
+title: "Apprendre tidyverse : Maîtriser les dates en R avec lubridate"
 date: "2025-02-25"
 categories: [R, Data Science, Dates, lubridate]
 image: "calendar.jpg"
