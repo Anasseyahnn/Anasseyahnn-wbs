@@ -1,9 +1,599 @@
 ---
-title: "tidyverse-guide"
-format: html
+title: "Apprendre tidiverse : Maîtriser les dates en R avec lubridate"
+date: "2025-02-25"
+categories: [R, Data Science, Dates, lubridate]
+image: "calendar.jpg"
+toc: true
+format: 
+  html:
+    code-fold: show
+    code-tools: true
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(lubridate)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(scales)
+```
 
-Dans cet article, nous plongerons en détail dans chaque package du tidyverse. Vous découvrirez des tutoriels pratiques, des astuces et des exemples concrets pour maîtriser ces outils essentiels. Que vous soyez débutant ou utilisateur avancé, il y aura quelque chose pour vous !
+## Pourquoi maîtriser les dates en R ?
 
-# Bientôt disponible 
+Les analyses de données commerciales, financières ou marketing impliquent presque toujours une dimension temporelle. Savoir manipuler efficacement les dates est donc une compétence indispensable pour tout analyste de données utilisant R. Dans ce tutoriel, nous allons :
+
+1. Explorer les fonctionnalités essentielles du package `lubridate`
+2. Appliquer ces connaissances à un projet complet d'analyse de données de vente
+
+## 1. Les bases de lubridate
+
+### Installation et chargement
+
+```{r eval=FALSE}
+# Installation (à faire une seule fois)
+install.packages("lubridate")
+
+# Chargement
+library(lubridate)
+```
+
+### Création de dates : l'approche intuitive
+
+La force de `lubridate` réside dans sa syntaxe intuitive. Pour créer une date, il suffit d'utiliser une fonction dont le nom correspond à l'ordre des éléments.
+
+```{r}
+# Format année-mois-jour
+ymd("2025-02-25")
+
+# Format jour-mois-année
+dmy("25-02-2025")
+
+# Format mois-jour-année (format américain)
+mdy("02/25/2025")
+
+# Fonctionne avec différents séparateurs ou sans
+ymd("2025.02.25")
+ymd("20250225")
+```
+
+::: {.callout-tip}
+Les fonctions de création de date acceptent de nombreux formats et séparateurs, ce qui facilite le nettoyage des données importées de diverses sources.
+:::
+
+### Intégration de l'heure
+
+Pour inclure l'heure, ajoutez simplement le suffixe correspondant :
+
+```{r}
+# Année-mois-jour heure-minute-seconde
+ymd_hms("2025-02-25 14:30:45")
+
+# Jour-mois-année heure-minute
+dmy_hm("25-02-2025 14:30")
+```
+
+## 2. Extraire et modifier les composants d'une date
+
+### Extraction d'informations
+
+```{r}
+# Création d'une date
+ma_date <- ymd("2025-02-25")
+
+# Extraction des composants
+year(ma_date)    # Année
+month(ma_date)   # Mois (numérique)
+month(ma_date, label = TRUE, abbr = FALSE)  # Nom du mois complet
+day(ma_date)     # Jour du mois
+wday(ma_date, label = TRUE, week_start = 1)  # Jour de la semaine (débutant lundi)
+quarter(ma_date) # Trimestre
+```
+
+### Modification des composants
+
+```{r}
+# Copier la date pour démonstration
+date_modifiee <- ma_date
+
+# Modification de l'année
+year(date_modifiee) <- 2026
+date_modifiee
+
+# Modification du mois (en une ligne)
+date_modifiee <- date_modifiee %>% month(5)
+date_modifiee
+```
+
+## 3. Arithmétique des dates
+
+L'un des grands avantages de `lubridate` est la simplicité des opérations arithmétiques :
+
+```{r}
+ma_date <- ymd("2025-02-25")
+
+# Ajouter différentes unités de temps
+ma_date + days(10)
+ma_date + weeks(2)
+ma_date + months(3)
+ma_date + years(1)
+
+# Combinaison d'opérations
+ma_date + days(5) + months(1)
+
+# Différence entre deux dates
+date1 <- ymd("2025-01-15")
+date2 <- ymd("2025-03-25")
+interval <- interval(date1, date2)
+as.period(interval)
+```
+
+::: {.callout-important}
+Attention à la différence entre `period` et `duration` ! 
+- `months(1)` (période) : ajoute un mois calendaire (variable selon le mois)
+- `dmonths(1)` (durée) : ajoute exactement 30.44 jours
+:::
+
+```{r}
+# Démonstration de la différence
+ymd("2025-01-31") + months(1)  # Respecte le calendrier
+ymd("2025-01-31") + dmonths(1)  # Ajoute une durée fixe
+```
+
+## 4. Projet pratique : Analyse des ventes d'une chaîne de magasins
+
+Maintenant, appliquons ces connaissances à un projet concret. Nous allons analyser les données de vente d'une chaîne de magasins fictive pour identifier les tendances saisonnières et les opportunités commerciales.
+
+### 4.1 Génération des données de vente
+
+Commençons par créer un jeu de données réaliste :
+
+```{r}
+# Fonction pour générer des ventes avec patterns saisonniers
+generer_ventes <- function(n_jours, date_debut) {
+  set.seed(123)
+  
+  # Séquence de dates
+  dates <- seq(ymd(date_debut), ymd(date_debut) + days(n_jours - 1), by = "day")
+  
+  # Tendance générale à la hausse
+  tendance <- seq(1, n_jours) * 5
+  
+  # Saisonnalité hebdomadaire (weekend +)
+  saisonnalite_hebdo <- ifelse(wday(dates) %in% c(1, 7), 2000, 0)
+  
+  # Saisonnalité mensuelle (fin de mois +)
+  saisonnalite_mensuelle <- ifelse(day(dates) >= 25, 1000, 0)
+  
+  # Saisonnalité annuelle (été et Noël +)
+  mois <- month(dates)
+  saisonnalite_annuelle <- case_when(
+    mois %in% c(7, 8) ~ 3000,  # Été
+    mois == 12 ~ 5000,         # Noël
+    mois == 1 ~ -1000,         # Janvier (après Noël)
+    TRUE ~ 0
+  )
+  
+  # Valeurs de base avec bruit aléatoire
+  base <- 10000
+  bruit <- rnorm(n_jours, mean = 0, sd = 1000)
+  
+  # Génération des ventes journalières
+  ventes <- base + tendance + saisonnalite_hebdo + saisonnalite_mensuelle + 
+    saisonnalite_annuelle + bruit
+  
+  # Création du dataframe
+  data.frame(
+    date = dates,
+    ventes = round(pmax(ventes, 0)),
+    magasin = sample(c("Paris", "Lyon", "Marseille", "Bordeaux", "Lille"), n_jours, replace = TRUE)
+  )
+}
+
+# Génération de deux ans de données
+ventes <- generer_ventes(730, "2023-01-01")
+
+# Aperçu des données
+head(ventes)
+```
+
+### 4.2 Exploration des données temporelles
+
+Préparons les données en ajoutant des dimensions temporelles utiles :
+
+```{r}
+# Enrichissement des données avec composantes temporelles
+ventes_enrichies <- ventes %>%
+  mutate(
+    annee = year(date),
+    mois = month(date, label = TRUE),
+    trimestre = quarter(date),
+    semaine = week(date),
+    jour_semaine = wday(date, label = TRUE, week_start = 1),
+    jour_mois = day(date),
+    weekend = ifelse(wday(date) %in% c(1, 7), "Weekend", "Semaine"),
+    saison = case_when(
+      month(date) %in% c(12, 1, 2) ~ "Hiver",
+      month(date) %in% c(3, 4, 5) ~ "Printemps",
+      month(date) %in% c(6, 7, 8) ~ "Été",
+      TRUE ~ "Automne"
+    )
+  )
+
+# Structure des données enrichies
+glimpse(ventes_enrichies)
+```
+
+### 4.3 Analyse des tendances mensuelles
+
+Analysons maintenant l'évolution mensuelle des ventes :
+
+```{r}
+# Ventes mensuelles
+ventes_mensuelles <- ventes_enrichies %>%
+  group_by(annee, mois) %>%
+  summarise(ventes_totales = sum(ventes)) %>%
+  ungroup()
+
+# Visualisation
+ggplot(ventes_mensuelles, aes(x = mois, y = ventes_totales, fill = factor(annee))) +
+  geom_col(position = "dodge") +
+  scale_y_continuous(labels = label_number(suffix = " €", big.mark = " ")) +
+  labs(
+    title = "Ventes mensuelles par année",
+    x = "Mois",
+    y = "Ventes totales",
+    fill = "Année"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+### 4.4 Comparaison des jours de la semaine
+
+```{r}
+# Ventes par jour de semaine
+ventes_jour_semaine <- ventes_enrichies %>%
+  group_by(jour_semaine, weekend) %>%
+  summarise(ventes_moyennes = mean(ventes)) %>%
+  ungroup()
+
+# Visualisation
+ggplot(ventes_jour_semaine, aes(x = jour_semaine, y = ventes_moyennes, fill = weekend)) +
+  geom_col() +
+  scale_y_continuous(labels = label_number(suffix = " €", big.mark = " ")) +
+  labs(
+    title = "Ventes moyennes par jour de la semaine",
+    x = "Jour",
+    y = "Ventes moyennes",
+    fill = "Type de jour"
+  ) +
+  theme_minimal()
+```
+
+### 4.5 Analyse des tendances saisonnières
+
+```{r}
+# Ventes par saison et par année
+ventes_saison <- ventes_enrichies %>%
+  group_by(annee, saison) %>%
+  summarise(ventes_totales = sum(ventes)) %>%
+  ungroup()
+
+# Réordonner les saisons
+ventes_saison$saison <- factor(ventes_saison$saison, 
+                               levels = c("Printemps", "Été", "Automne", "Hiver"))
+
+# Visualisation
+ggplot(ventes_saison, aes(x = saison, y = ventes_totales, fill = factor(annee))) +
+  geom_col(position = "dodge") +
+  scale_y_continuous(labels = label_number(suffix = " €", big.mark = " ")) +
+  labs(
+    title = "Ventes totales par saison",
+    x = "Saison",
+    y = "Ventes totales",
+    fill = "Année"
+  ) +
+  theme_minimal()
+```
+
+### 4.6 Analyse des ventes par magasin dans le temps
+
+```{r}
+# Ventes mensuelles par magasin
+ventes_magasin <- ventes_enrichies %>%
+  group_by(annee, mois, magasin) %>%
+  summarise(ventes_totales = sum(ventes)) %>%
+  ungroup()
+
+# Fusion année-mois pour la visualisation
+ventes_magasin <- ventes_magasin %>%
+  mutate(periode = ymd(paste0(annee, "-", as.numeric(mois), "-01")))
+
+# Visualisation
+ggplot(ventes_magasin, aes(x = periode, y = ventes_totales, color = magasin)) +
+  geom_line() +
+  geom_point() +
+  scale_x_date(date_labels = "%b %Y", date_breaks = "2 months") +
+  scale_y_continuous(labels = label_number(suffix = " €", big.mark = " ")) +
+  labs(
+    title = "Évolution des ventes par magasin",
+    x = "Période",
+    y = "Ventes totales",
+    color = "Magasin"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+### 4.7 Identification de jours spéciaux
+
+Analysons les jours de vente exceptionnels :
+
+```{r}
+# Calcul des jours exceptionnels (ventes supérieures à la moyenne + 2 écarts-types)
+moyenne_ventes <- mean(ventes_enrichies$ventes)
+ecart_type_ventes <- sd(ventes_enrichies$ventes)
+seuil_exceptionnel <- moyenne_ventes + 2 * ecart_type_ventes
+
+jours_exceptionnels <- ventes_enrichies %>%
+  filter(ventes > seuil_exceptionnel) %>%
+  arrange(desc(ventes))
+
+# Affichage des 10 meilleurs jours de vente
+knitr::kable(
+  head(jours_exceptionnels %>% 
+         select(date, jour_semaine, mois, ventes, magasin), 10),
+  caption = "Top 10 des jours de vente exceptionnels",
+  format.args = list(big.mark = " ")
+)
+```
+
+### 4.8 Analyse des intervalles entre pics de vente
+
+```{r}
+# Intervalles entre jours exceptionnels
+jours_pic <- jours_exceptionnels %>%
+  arrange(date) %>%
+  pull(date)
+
+# Calcul des intervalles (en jours)
+intervalles <- diff(jours_pic)
+
+# Statistiques sur les intervalles
+resume_intervalles <- data.frame(
+  intervalle_min = min(intervalles),
+  intervalle_median = median(intervalles),
+  intervalle_moyen = mean(intervalles),
+  intervalle_max = max(intervalles)
+)
+
+knitr::kable(resume_intervalles, 
+       caption = "Statistiques sur les intervalles entre pics de vente (en jours)")
+```
+
+### 4.9 Prévision simple basée sur les tendances historiques
+
+Nous pouvons utiliser lubridate pour extrapoler les ventes futures en nous basant sur les patterns saisonniers identifiés :
+
+```{r}
+# Création de dates futures pour prévision
+dates_futures <- seq(max(ventes$date) + days(1), 
+                     max(ventes$date) + days(30), by = "day")
+
+# Préparation du dataframe pour les prévisions
+previsions <- data.frame(
+  date = dates_futures,
+  jour_semaine = wday(dates_futures, label = TRUE),
+  mois = month(dates_futures, label = TRUE),
+  jour_mois = day(dates_futures)
+)
+
+# Application des facteurs saisonniers identifiés
+previsions <- previsions %>%
+  mutate(
+    facteur_weekend = ifelse(wday(date) %in% c(1, 7), 1.2, 1),
+    facteur_fin_mois = ifelse(jour_mois >= 25, 1.1, 1),
+    facteur_mois = case_when(
+      mois %in% c("juil.", "août") ~ 1.3,
+      mois == "déc." ~ 1.5,
+      mois == "janv." ~ 0.9,
+      TRUE ~ 1
+    ),
+    ventes_prevues = 15000 * facteur_weekend * facteur_fin_mois * facteur_mois
+  )
+
+# Aperçu des prévisions
+knitr::kable(
+  head(previsions %>% 
+         select(date, jour_semaine, ventes_prevues), 10),
+  caption = "Prévision des ventes pour les 10 prochains jours",
+  format.args = list(big.mark = " ")
+)
+```
+
+## 5. Applications pratiques avancées avec lubridate
+
+### 5.1 Création de périodes glissantes (rolling periods)
+
+```{r}
+# Calcul des moyennes mobiles sur 7 jours
+ventes_moyennes_mobiles <- ventes %>%
+  arrange(date) %>%
+  mutate(
+    ventes_moy_7j = zoo::rollmean(ventes, k = 7, fill = NA, align = "right"),
+    periode_debut = date - days(6),
+    periode_fin = date
+  )
+
+# Visualisation des dernières 30 observations
+tail_ventes <- tail(ventes_moyennes_mobiles, 30)
+
+ggplot(tail_ventes, aes(x = date)) +
+  geom_line(aes(y = ventes), color = "gray50") +
+  geom_line(aes(y = ventes_moy_7j), color = "blue", size = 1) +
+  scale_y_continuous(labels = label_number(suffix = " €", big.mark = " ")) +
+  labs(
+    title = "Ventes quotidiennes vs. moyenne mobile sur 7 jours",
+    subtitle = "30 derniers jours d'observation",
+    x = "Date",
+    y = "Ventes"
+  ) +
+  theme_minimal()
+```
+
+### 5.2 Calcul d'intervalles entre événements
+
+```{r}
+# Identification des jours où les ventes dépassent 20 000 €
+jours_20k <- ventes %>%
+  filter(ventes > 20000) %>%
+  arrange(date) %>%
+  pull(date)
+
+# Calcul des intervalles entre ces jours
+intervalles_20k <- data.frame(
+  date_debut = head(jours_20k, -1),
+  date_fin = tail(jours_20k, -1),
+  intervalle = as.numeric(diff(jours_20k))
+)
+
+# Affichage des 5 premiers intervalles
+knitr::kable(
+  head(intervalles_20k, 5),
+  caption = "Intervalles (en jours) entre les ventes dépassant 20 000 €"
+)
+```
+
+### 5.3 Analyse par saison commerciale
+
+Définissons des saisons commerciales personnalisées et analysons les performances :
+
+```{r}
+# Définition des périodes commerciales
+periodes_commerciales <- function(date) {
+  case_when(
+    (month(date) == 11 & day(date) >= 25) | 
+      (month(date) == 12 & day(date) <= 31) ~ "Fêtes de fin d'année",
+    (month(date) >= 6 & month(date) <= 8) ~ "Période estivale",
+    (month(date) >= 1 & month(date) <= 2) ~ "Soldes d'hiver",
+    (month(date) >= 6 & month(date) <= 7 & day(date) <= 15) ~ "Soldes d'été",
+    TRUE ~ "Période normale"
+  )
+}
+
+# Application à nos données
+ventes_periodes <- ventes %>%
+  mutate(periode_commerciale = periodes_commerciales(date))
+
+# Analyse des ventes par période commerciale
+resume_periodes <- ventes_periodes %>%
+  group_by(periode_commerciale) %>%
+  summarise(
+    ventes_totales = sum(ventes),
+    ventes_moyennes = mean(ventes),
+    nb_jours = n()
+  ) %>%
+  arrange(desc(ventes_moyennes))
+
+# Visualisation
+knitr::kable(
+  resume_periodes,
+  caption = "Performance des ventes par période commerciale",
+  format.args = list(big.mark = " ")
+)
+```
+
+## 6. Conseils pratiques pour travailler avec les dates
+
+### 6.1 Formatage des dates pour affichage
+
+```{r}
+# Exemples de formatage
+ma_date <- ymd("2025-02-25")
+
+formats <- c(
+  "%d/%m/%Y", 
+  "%A %d %B %Y", 
+  "%d %b %Y", 
+  "Semaine %U, %Y"
+)
+
+# Application des différents formats
+formats_affiches <- sapply(formats, function(fmt) format(ma_date, fmt))
+
+# Affichage des résultats
+data.frame(
+  Format = formats,
+  Résultat = formats_affiches
+)
+```
+
+### 6.2 Gestion des fuseaux horaires
+
+```{r}
+# Création d'une date avec heure et fuseau horaire
+date_paris <- ymd_hms("2025-02-25 14:30:00", tz = "Europe/Paris")
+date_paris
+
+# Conversion vers d'autres fuseaux horaires
+date_ny <- with_tz(date_paris, tzone = "America/New_York")
+date_tokyo <- with_tz(date_paris, tzone = "Asia/Tokyo")
+
+# Comparaison
+data.frame(
+  Ville = c("Paris", "New York", "Tokyo"),
+  Heure_locale = c(
+    format(date_paris, "%H:%M:%S"),
+    format(date_ny, "%H:%M:%S"),
+    format(date_tokyo, "%H:%M:%S")
+  ),
+  Date = c(
+    format(date_paris, "%d %b %Y"),
+    format(date_ny, "%d %b %Y"),
+    format(date_tokyo, "%d %b %Y")
+  ),
+  Fuseau = c(tz(date_paris), tz(date_ny), tz(date_tokyo))
+)
+```
+
+### 6.3 Traitement des données manquantes dans les dates
+
+```{r}
+# Exemple de dates avec valeurs manquantes
+dates_avec_na <- c("2025-02-25", NA, "2025-03-01")
+dates_parsees <- ymd(dates_avec_na)
+dates_parsees
+
+# Vérification des NA
+is.na(dates_parsees)
+
+# Filtrage des NA
+dates_parsees[!is.na(dates_parsees)]
+```
+
+## 7. Conclusion et bonnes pratiques
+
+Le package `lubridate` offre une approche intuitive et puissante pour manipuler les dates en R, ce qui est essentiel pour l'analyse de données commerciales. Voici quelques bonnes pratiques à retenir :
+
+1. **Cohérence des formats** : Standardisez vos dates dès l'importation des données
+2. **Enrichissez vos données** : Ajoutez des dimensions temporelles pertinentes (jour de semaine, mois, saison...)
+3. **Attention aux fuseaux horaires** : Soyez explicite dans leur gestion, surtout pour les données internationales
+4. **Pensez en périodes** : Utilisez les concepts de `period` et `duration` selon vos besoins
+5. **Évitez les calculs manuels** : Utilisez les fonctions spécialisées (`interval`, `time_length`, etc.)
+
+### Points clés à retenir
+
+- **Création de dates** : `ymd()`, `dmy()`, `mdy()`
+- **Extraction de composants** : `year()`, `month()`, `day()`, `wday()`
+- **Opérations arithmétiques** : `+ days()`, `+ months()`, `+ years()`
+- **Intervalles** : `interval()`, `as.period()`, `time_length()`
+- **Arrondis** : `round_date()`, `floor_date()`, `ceiling_date()`
+
+Maîtriser ces fonctions vous permettra d'analyser efficacement la dimension temporelle de vos données commerciales et d'en extraire des insights précieux pour votre entreprise.
+
+## Pour aller plus loin
+
+- La [documentation officielle de lubridate](https://lubridate.tidyverse.org/)
+- Le livre [R for Data Science](https://r4ds.hadley.nz/) de Hadley Wickham
+- Les packages complémentaires : `tsibble` pour les séries temporelles, `timetk` pour l'analyse temporelle avancée
