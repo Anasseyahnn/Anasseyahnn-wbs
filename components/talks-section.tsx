@@ -113,13 +113,22 @@ export default function TalksSection() {
                 </p>
               </div>
 
-              <Button 
-                className="w-full glass glass-hover border border-white/20 hover:border-blue-400/60 text-white font-semibold py-3.5 px-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-400/20 group/btn mt-6"
-                onClick={() => window.open("/CV_BOUAGBA_Anasse_ATS_v2.pdf", "_blank")}
-              >
-                <Mail className="w-5 h-5 mr-2 transition-transform duration-300 group-hover/btn:rotate-12 group-hover/btn:text-blue-400" />
-                {t("talks.cta")}
-              </Button>
+              <div className="flex flex-col gap-3 mt-6">
+                <Button 
+                  className="w-full glass glass-hover border border-white/20 hover:border-blue-400/60 text-white font-semibold py-3.5 px-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-400/20 group/btn"
+                  onClick={() => window.open("/CV_BOUAGBA_Anasse_ATS_v2.pdf", "_blank")}
+                >
+                  <Mail className="w-5 h-5 mr-2 transition-transform duration-300 group-hover/btn:rotate-12 group-hover/btn:text-blue-400" />
+                  {t("talks.cta")}
+                </Button>
+                <Button 
+                  className="w-full glass glass-hover border border-white/20 hover:border-purple-400/60 text-white font-semibold py-3.5 px-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-400/20 group/btn"
+                  onClick={() => window.location.href = "/cv"}
+                >
+                  <BookOpen className="w-5 h-5 mr-2 transition-transform duration-300 group-hover/btn:rotate-12 group-hover/btn:text-purple-400" />
+                  {t("cv.viewOnline")}
+                </Button>
+              </div>
             </Card>
           </div>
 
