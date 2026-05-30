@@ -222,11 +222,15 @@ export default function CVPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-xs sm:text-sm text-white/80 print-text-muted">
                 <div className="flex items-start space-x-2.5">
                   <Mail className="w-4 h-4 text-blue-400 no-print mt-0.5 shrink-0" />
-                  <span className="break-all">anasseyahanan@gmail.com</span>
+                  <a href="mailto:anasseyahanan@gmail.com" className="hover:underline break-all">
+                    anasseyahanan@gmail.com
+                  </a>
                 </div>
                 <div className="flex items-start space-x-2.5">
                   <Phone className="w-4 h-4 text-blue-400 no-print mt-0.5 shrink-0" />
-                  <span>+225 07 48 46 67 48</span>
+                  <a href="tel:+2250748466748" className="hover:underline">
+                    +225 07 48 46 67 48
+                  </a>
                 </div>
                 <div className="flex items-start space-x-2.5">
                   <MapPin className="w-4 h-4 text-blue-400 no-print mt-0.5 shrink-0" />
