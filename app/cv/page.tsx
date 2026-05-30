@@ -385,7 +385,11 @@ export default function CVPage() {
                   <div className="border-l-2 border-emerald-500/20 pl-4">
                     <h3 className="text-sm font-bold text-white print:text-black">{t("cv.references.ref2.name")}</h3>
                     <p className="text-xs text-emerald-400 font-medium">{t("cv.references.ref2.role")}</p>
-                    <p className="text-[11px] text-white/50 print-text-muted">jokangha@gmail.com</p>
+                    <p className="text-[11px] text-white/50 print-text-muted">
+                      <a href="tel:+2250797234934" className="hover:underline">
+                        +225 07 97 23 49 34
+                      </a>
+                    </p>
                   </div>
                 </div>
               </div>

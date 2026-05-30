@@ -112,8 +112,8 @@ const translations = {
     "cv.references.title": "References",
     "cv.references.ref1.name": "Mr. PAULIN KOUASSI",
     "cv.references.ref1.role": "MEAL Officer – World Bank",
-    "cv.references.ref2.name": "Mr. JOEL KANGHA",
-    "cv.references.ref2.role": "Project Manager – ASMA",
+    "cv.references.ref2.name": "Jean-Yves Yao",
+    "cv.references.ref2.role": "Quantitative Research Manager – OpinionWay Subsaharian Africa",
     "cv.viewOnline": "View Online CV",
   },
   fr: {
@@ -214,8 +214,8 @@ const translations = {
     "cv.references.title": "Références",
     "cv.references.ref1.name": "M. PAULIN KOUASSI",
     "cv.references.ref1.role": "Chargé Suivi-Évaluation – Banque Mondiale",
-    "cv.references.ref2.name": "M. JOEL KANGHA",
-    "cv.references.ref2.role": "Chef de Projet – ASMA",
+    "cv.references.ref2.name": "Jean-Yves Yao",
+    "cv.references.ref2.role": "Quantitative Research Manager – OpinionWay Afrique Subsaharienne",
     "cv.viewOnline": "Consulter le CV en Ligne",
   },
 }
