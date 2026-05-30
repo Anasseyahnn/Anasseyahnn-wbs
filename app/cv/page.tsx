@@ -219,22 +219,22 @@ export default function CVPage() {
                   }
                 </p>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-white/80 print-text-muted">
-                <div className="flex items-center space-x-2">
-                  <Mail className="w-4 h-4 text-blue-400 no-print" />
-                  <span>anasseyahanan@gmail.com</span>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-xs sm:text-sm text-white/80 print-text-muted">
+                <div className="flex items-start space-x-2.5">
+                  <Mail className="w-4 h-4 text-blue-400 no-print mt-0.5 shrink-0" />
+                  <span className="break-all">anasseyahanan@gmail.com</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Phone className="w-4 h-4 text-blue-400 no-print" />
+                <div className="flex items-start space-x-2.5">
+                  <Phone className="w-4 h-4 text-blue-400 no-print mt-0.5 shrink-0" />
                   <span>+225 07 48 46 67 48</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <MapPin className="w-4 h-4 text-blue-400 no-print" />
+                <div className="flex items-start space-x-2.5">
+                  <MapPin className="w-4 h-4 text-blue-400 no-print mt-0.5 shrink-0" />
                   <span>Cocody, Abidjan, Côte d'Ivoire</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Linkedin className="w-4 h-4 text-blue-400 no-print" />
-                  <a href="https://linkedin.com/in/anasse-yahanan-bouagba-3b39aa242" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                <div className="flex items-start space-x-2.5">
+                  <Linkedin className="w-4 h-4 text-blue-400 no-print mt-0.5 shrink-0" />
+                  <a href="https://linkedin.com/in/anasse-yahanan-bouagba-3b39aa242" target="_blank" rel="noopener noreferrer" className="hover:underline break-all">
                     linkedin.com/in/anasse-yahanan
                   </a>
                 </div>
